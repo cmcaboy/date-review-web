@@ -12,4 +12,4 @@ class Button extends React.Component<ButtonProps, ButtonState> {
   }
 }
 
-export default Button;
+export { Button };

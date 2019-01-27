@@ -12,4 +12,4 @@ class H5 extends React.Component<H5Props, H5State> {
   }
 }
 
-export default H5;
+export { H5 };

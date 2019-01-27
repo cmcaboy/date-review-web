@@ -12,4 +12,4 @@ class Dropdown extends React.Component<DropdownProps, DropdownState> {
   }
 }
 
-export default Dropdown;
+export { Dropdown };

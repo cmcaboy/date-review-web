@@ -1,15 +1,24 @@
 // * This is the about page
 
 import * as React from "react";
+import { H3 } from "./index";
+import styled from "styled-components";
 
-interface HeaderLinkProps {}
+interface HeaderLinkProps {
+  children: React.ReactNode;
+}
 
 interface HeaderLinkState {}
 
 class HeaderLink extends React.Component<HeaderLinkProps, HeaderLinkState> {
   public render(): JSX.Element {
-    return <span>HeaderLink</span>;
+    return <MyHeaderLink>{this.props.children}</MyHeaderLink>;
   }
 }
 
-export default HeaderLink;
+const MyHeaderLink = styled(H3)`
+  font-weight: 300;
+  margin: 0 20px;
+`;
+
+export { HeaderLink };

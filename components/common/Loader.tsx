@@ -12,4 +12,4 @@ class Loader extends React.Component<LoaderProps, LoaderState> {
   }
 }
 
-export default Loader;
+export { Loader };

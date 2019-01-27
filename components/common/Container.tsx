@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Header from "../Header";
+import { createGlobalStyle } from "styled-components";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ class Container extends React.Component<ContainerProps, ContainerState> {
   public render(): JSX.Element {
     return (
       <Div>
+        <GlobalStyle />
         <Header />
         {this.props.children}
       </Div>
@@ -23,7 +25,13 @@ class Container extends React.Component<ContainerProps, ContainerState> {
 // * our app.
 const Div = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Rubik");
-  padding: 0 100px;
+  padding: 0 0;
+`;
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
 `;
 
 export { Container };
