@@ -2,21 +2,20 @@
 
 import * as React from "react";
 import { Content, P, Container } from "../components/common";
+interface LoginProps {}
 
-interface AboutProps {}
+interface LoginState {}
 
-interface AboutState {}
-
-class About extends React.Component<AboutProps, AboutState> {
+class Login extends React.Component<LoginProps, LoginState> {
   public render(): JSX.Element {
     return (
       <Container>
         <Content>
-          <P>About</P>
+          <P>Login</P>
         </Content>
       </Container>
     );
   }
 }
 
-export default About;
+export default Login;

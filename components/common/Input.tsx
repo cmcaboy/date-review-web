@@ -1,15 +1,11 @@
 // * This is the about page
 
-import * as React from "react";
+import styled from "styled-components";
 
-interface InputProps {}
-
-interface InputState {}
-
-class Input extends React.Component<InputProps, InputState> {
-  public render(): JSX.Element {
-    return <span>Input</span>;
-  }
-}
-
-export { Input };
+export const Input = styled.input`
+  width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding-left: 10px;
+`;

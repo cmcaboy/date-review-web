@@ -1,15 +1,5 @@
 // * This is the about page
 
-import * as React from "react";
+import styled from "styled-components";
 
-interface ButtonProps {}
-
-interface ButtonState {}
-
-class Button extends React.Component<ButtonProps, ButtonState> {
-  public render(): JSX.Element {
-    return <span>Button</span>;
-  }
-}
-
-export { Button };
+export const Button = styled.button``;

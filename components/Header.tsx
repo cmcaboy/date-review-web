@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import styled from "styled-components";
-import { Content, H1, H3 } from "./common";
+import { Content, HeaderLink, HeaderTitle } from "./common";
+import Link from "next/link";
 
 interface HeaderProps {}
 
@@ -14,11 +15,19 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       <Div>
         <Content>
           <MyHeaderDiv>
-            <H1>Boink</H1>
+            <Link href="/">
+              <HeaderTitle>Boink</HeaderTitle>
+            </Link>
             <RightDiv>
-              <H3>About</H3>
-              <H3>Contact</H3>
-              <H3>Login</H3>
+              <Link href="/about">
+                <HeaderLink>About</HeaderLink>
+              </Link>
+              <Link href="/contact">
+                <HeaderLink>Contact</HeaderLink>
+              </Link>
+              <Link href="/login">
+                <HeaderLink>Login</HeaderLink>
+              </Link>
             </RightDiv>
           </MyHeaderDiv>
         </Content>
