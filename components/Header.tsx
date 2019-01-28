@@ -4,6 +4,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Content, HeaderLink, HeaderTitle } from "./common";
 import Link from "next/link";
+import { Button, P } from "./common/Button";
 
 interface HeaderProps {}
 
@@ -16,7 +17,10 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <Content>
           <MyHeaderDiv>
             <Link href="/">
-              <HeaderTitle>Boink</HeaderTitle>
+              <LeftDiv>
+                <Img src="../static/boink_icon.png" />
+                <HeaderTitle>Boink</HeaderTitle>
+              </LeftDiv>
             </Link>
             <RightDiv>
               <Link href="/about">
@@ -28,6 +32,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               <Link href="/login">
                 <HeaderLink>Login</HeaderLink>
               </Link>
+              <Link href="/new">
+                <Button>New Review</Button>
+              </Link>
             </RightDiv>
           </MyHeaderDiv>
         </Content>
@@ -35,6 +42,12 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     );
   }
 }
+
+const Img = styled.img`
+  height: 50px;
+  width: 50px;
+  padding: 0 5px;
+`;
 
 const MyHeaderDiv = styled.div`
   display: flex;
@@ -47,13 +60,24 @@ const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
+`;
+
+const LeftDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 // const HeaderContent;
 
 const Div = styled.div`
-  background-color: orange;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.12);
 `;
 
 export default Header;

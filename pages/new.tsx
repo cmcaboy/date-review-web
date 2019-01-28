@@ -12,7 +12,7 @@ class New extends React.Component<NewProps, NewState> {
     return (
       <Container>
         <Content>
-          <P>New</P>;
+          <P>New</P>
         </Content>
       </Container>
     );

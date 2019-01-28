@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import styled from "styled-components";
-import { Input } from "../components/common";
+import { Input, Button } from "../components/common";
 
 interface SearchProps {}
 
@@ -22,13 +22,30 @@ class Search extends React.Component<SearchProps, SearchState> {
   render(): JSX.Element {
     const { name } = this.state;
     return (
-      <Input
-        placeholder="Username or name"
-        onChange={this.onChange}
-        value={name}
-      />
+      <Div>
+        <Input
+          placeholder="Username or name"
+          onChange={this.onChange}
+          value={name}
+        />
+        <SearchButton>Search</SearchButton>
+      </Div>
     );
   }
 }
+
+const SearchButton = styled(Button)`
+  height: 45px;
+  font-size: 16px;
+  margin: 2px 2px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default Search;

@@ -10,7 +10,7 @@ export default class extends React.Component {
     return (
       <Container>
         <ThisContent>
-          <Title>Leave a review for someone you dated</Title>
+          <Title>Search for someone you have dated</Title>
           <Search />
           <UserList />
         </ThisContent>
