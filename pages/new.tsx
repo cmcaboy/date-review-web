@@ -6,12 +6,12 @@ import request from "superagent";
 import { Content, Container, P, Input, Button } from "../components/common";
 import styled from "styled-components";
 import { FaUpload } from "react-icons/fa";
-import { PRIMARY_COLOR } from "../variables/index";
 
 // TODO: control image size
 // TODO: Compress images?
 // TODO: Modularize image upload
 // TODO: Allow multiple images to be uplaoded at once
+// TODO: Format form
 
 const CLOUDINARY_UPLOAD_PRESET = "image-upload";
 const CLOUDINARY_UPLOAD_URL =
@@ -62,6 +62,7 @@ class New extends React.Component<NewProps, NewState> {
     this.setState({ rating: parseInt(e.target.value) });
   changeDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ description: e.target.value });
+
   changePhoto = e => this.setState({ photo: e.target.value });
 
   onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -119,34 +120,40 @@ class New extends React.Component<NewProps, NewState> {
     return (
       <Container>
         <Content>
-          <form onSubmit={this.onSubmit}>
-            <P>New Review</P>
+          <Form onSubmit={this.onSubmit}>
+            <P>Username</P>
             <Input
               placeholder="Username"
               value={username}
               onChange={this.changeUsername}
             />
+            <P>First name</P>
             <Input
               placeholder="First name"
               value={firstName}
               onChange={this.changeFirstName}
             />
+            <P>Last name</P>
             <Input
               placeholder="Last name"
               value={lastName}
               onChange={this.changeLastName}
             />
+            <P>Age</P>
             <Input placeholder="Age" value={age} onChange={this.changeAge} />
+            <P>Rating</P>
             <Input
               placeholder="Rating"
               value={rating}
               onChange={this.changeRating}
             />
+            <P>Description</P>
             <Input
               placeholder="Description"
               value={description}
               onChange={this.changeDescription}
             />
+            <P>Upload Images</P>
             <Dropzone
               onDrop={this.onImageDrop}
               accept="image/*"
@@ -178,12 +185,21 @@ class New extends React.Component<NewProps, NewState> {
             <Button primary disabled>
               Create New Review
             </Button>
-          </form>
+          </Form>
         </Content>
       </Container>
     );
   }
 }
+
+const Form = styled.form`
+  padding: 20px;
+  margin: 20px;
+  border-radius: 1px;
+  background-color: #fdf5e6;
+  border: 1px solid black;
+  width: auto;
+`;
 
 const Img = styled.img`
   width: 100px;
