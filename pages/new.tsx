@@ -3,15 +3,17 @@
 import * as React from "react";
 import Dropzone from "react-dropzone";
 import request from "superagent";
-import { Content, Container, P, Input, Button } from "../components/common";
+import { Content, Container, P, Input, Button, H1 } from "../components/common";
 import styled from "styled-components";
+import StarRatingComponent from "react-star-rating-component";
 import { FaUpload } from "react-icons/fa";
+import { PRIMARY_COLOR } from "../variables";
+import FormSegment from "../components/common/FormSegment";
 
 // TODO: control image size
 // TODO: Compress images?
 // TODO: Modularize image upload
 // TODO: Allow multiple images to be uplaoded at once
-// TODO: Format form
 
 const CLOUDINARY_UPLOAD_PRESET = "image-upload";
 const CLOUDINARY_UPLOAD_URL =
@@ -58,8 +60,7 @@ class New extends React.Component<NewProps, NewState> {
     this.setState({ lastName: e.target.value });
   changeAge = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ age: parseInt(e.target.value) });
-  changeRating = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ rating: parseInt(e.target.value) });
+  changeRating = (rating: number) => this.setState({ rating });
   changeDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ description: e.target.value });
 
@@ -117,88 +118,112 @@ class New extends React.Component<NewProps, NewState> {
       uploadedFileCloudinaryUrl,
       uploadedFile
     } = this.state;
+    const disabled = !username || !rating;
     return (
       <Container>
-        <Content>
+        <ThisContent>
+          <Heading>Leave a new review</Heading>
           <Form onSubmit={this.onSubmit}>
-            <P>Username</P>
-            <Input
-              placeholder="Username"
-              value={username}
-              onChange={this.changeUsername}
-            />
-            <P>First name</P>
-            <Input
-              placeholder="First name"
-              value={firstName}
-              onChange={this.changeFirstName}
-            />
-            <P>Last name</P>
-            <Input
-              placeholder="Last name"
-              value={lastName}
-              onChange={this.changeLastName}
-            />
-            <P>Age</P>
-            <Input placeholder="Age" value={age} onChange={this.changeAge} />
-            <P>Rating</P>
-            <Input
-              placeholder="Rating"
-              value={rating}
-              onChange={this.changeRating}
-            />
-            <P>Description</P>
-            <Input
-              placeholder="Description"
-              value={description}
-              onChange={this.changeDescription}
-            />
-            <P>Upload Images</P>
-            <Dropzone
-              onDrop={this.onImageDrop}
-              accept="image/*"
-              multiple={false}
+            <FormSegment title="Username">
+              <Input value={username} onChange={this.changeUsername} />
+            </FormSegment>
+            <FormSegment
+              title="Rating"
+              valueIndicator={`${rating || "-"} / 10`}
             >
-              {({ getRootProps, getInputProps }) => {
-                return (
-                  <DropArea {...getRootProps()}>
-                    <Input {...getInputProps()} />
-                    {
-                      <>
-                        <P>
-                          Drag and drop his or photos here or click to select
-                          photos to upload.
-                        </P>
-                        <FaUpload size={40} color="#000" />
-                      </>
-                    }
-                  </DropArea>
-                );
-              }}
-            </Dropzone>
-            {!!uploadedFileCloudinaryUrl && (
-              <>
-                <P>{uploadedFile.name}</P>
-                <Img src={uploadedFileCloudinaryUrl} />
-              </>
-            )}
-            <Button primary disabled>
+              <StarContainer>
+                <StarRatingComponent
+                  name="Rating"
+                  starCount={10}
+                  value={rating}
+                  onStarClick={this.changeRating}
+                  starColor={PRIMARY_COLOR}
+                  emptyStarColor="#fff"
+                />
+              </StarContainer>
+            </FormSegment>
+            <FormSegment title="First name" optional>
+              <Input value={firstName} onChange={this.changeFirstName} />
+            </FormSegment>
+            <FormSegment title="Last name" optional>
+              <Input value={lastName} onChange={this.changeLastName} />
+            </FormSegment>
+            <FormSegment title="Age" optional>
+              <Input value={age} onChange={this.changeAge} />
+            </FormSegment>
+            <FormSegment title="Description" optional>
+              <Input
+                value={description}
+                onChange={this.changeDescription}
+                multiple
+              />
+            </FormSegment>
+            <FormSegment title="Upload Images" optional>
+              <Dropzone
+                onDrop={this.onImageDrop}
+                accept="image/*"
+                multiple={false}
+              >
+                {({ getRootProps, getInputProps }) => {
+                  return (
+                    <DropArea {...getRootProps()}>
+                      <Input {...getInputProps()} />
+                      {
+                        <>
+                          <P>
+                            Drag and drop his or photos here or click to select
+                            photos to upload.
+                          </P>
+                          <FaUpload size={40} color="#000" />
+                        </>
+                      }
+                    </DropArea>
+                  );
+                }}
+              </Dropzone>
+              {!!uploadedFileCloudinaryUrl && (
+                <>
+                  <P>{uploadedFile.name}</P>
+                  <Img src={uploadedFileCloudinaryUrl} />
+                </>
+              )}
+            </FormSegment>
+            <ThisButton primary disabled={disabled}>
               Create New Review
-            </Button>
+            </ThisButton>
           </Form>
-        </Content>
+        </ThisContent>
       </Container>
     );
   }
 }
 
+const StarContainer = styled.div`
+  font-size: 40px;
+`;
+
+const Heading = styled(H1)`
+  margin: 10px 0 0 0;
+`;
+
+const ThisButton = styled(Button)`
+  width: 100%;
+`;
+
+const ThisContent = styled(Content)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 const Form = styled.form`
   padding: 20px;
   margin: 20px;
-  border-radius: 1px;
+  border-radius: 2px;
   background-color: #fdf5e6;
-  border: 1px solid black;
-  width: auto;
+  border: 1px solid gray;
+  width: fit-content;
 `;
 
 const Img = styled.img`
@@ -209,7 +234,8 @@ const Img = styled.img`
 
 const DropArea = styled.div`
   height: 200px;
-  width: 100%;
+  width: 410px;
+  text-align: center;
   border: 1px solid black;
   margin: 5px 0;
   display: flex;
@@ -217,6 +243,7 @@ const DropArea = styled.div`
   justify-content: center;
   align-items: center;
   border-style: dashed;
+  border-radius: 2px;
   cursor: pointer;
 `;
 

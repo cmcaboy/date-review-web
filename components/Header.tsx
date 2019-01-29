@@ -29,9 +29,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
               <Link href="/contact">
                 <HeaderLink>Contact</HeaderLink>
               </Link>
-              <Link href="/login">
+              {/* <Link href="/login">
                 <HeaderLink>Login</HeaderLink>
-              </Link>
+              </Link> */}
               <Link href="/new">
                 <Button>New Review</Button>
               </Link>

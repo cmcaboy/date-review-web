@@ -4,4 +4,8 @@ import styled from "styled-components";
 // * our app.
 export const Content = styled.div`
   padding: 0 100px;
+
+  @media (max-width: 736px) {
+    padding: 0;
+  }
 `;
