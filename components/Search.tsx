@@ -36,6 +36,7 @@ class Search extends React.Component<SearchProps, SearchState> {
 
 const SearchButton = styled(Button)`
   height: 45px;
+  width: 150px;
   font-size: 16px;
   margin: 2px 2px;
 `;

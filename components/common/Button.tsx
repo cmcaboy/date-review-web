@@ -1,12 +1,21 @@
-// * This is the about page
-
 import styled from "styled-components";
 
+interface ButtonProps {
+  primary?: boolean | null;
+  disabled?: boolean | null;
+}
+
 export const Button = styled.button`
-  height: 60px;
-  width: 180px;
+  ${(props: ButtonProps) => ``}; // HACK HERE!!!
+  min-height: 60px;
+  min-width: 180px;
   border-radius: 2px;
-  background-color: #ffc800;
+  background-color: ${props => (props.primary ? "#000" : "#ffc800")};
+  color: ${props => (props.primary ? "#fff" : "#000")};
+  opacity: ${props => (props.disabled ? 0.5 : 1.0)};
   font-size: 28px;
   border-width: 2px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
