@@ -9,6 +9,8 @@ import StarRatingComponent from "react-star-rating-component";
 import { FaUpload, FaStar } from "react-icons/fa";
 import { PRIMARY_COLOR } from "../variables";
 import FormSegment from "../components/common/FormSegment";
+import { Mutation } from "react-apollo";
+import { newReview } from "apollo/mutations";
 
 // TODO: control image size
 // TODO: Compress images?
@@ -142,79 +144,86 @@ class New extends React.Component<NewProps, NewState> {
       <Container>
         <ThisContent>
           <Heading>Leave a new review</Heading>
-          <Form onSubmit={this.onSubmit}>
-            <FormSegment title="Username">
-              <Input value={username} onChange={this.changeUsername} />
-            </FormSegment>
-            <FormSegment
-              title="Rating"
-              valueIndicator={`${rating || "-"} / 10`}
-            >
-              <StarContainer>
-                <StarRatingComponent
-                  name="Rating"
-                  starCount={10}
-                  value={rating}
-                  onStarClick={this.changeRating}
-                  starColor={PRIMARY_COLOR}
-                  emptyStarColor="#DCDCDC"
-                  renderStarIcon={() => <FaStar />}
-                />
-              </StarContainer>
-            </FormSegment>
-            <FormSegment title="First name" optional>
-              <Input value={firstName} onChange={this.changeFirstName} />
-            </FormSegment>
-            <FormSegment title="Last name" optional>
-              <Input value={lastName} onChange={this.changeLastName} />
-            </FormSegment>
-            <FormSegment title="Age" optional>
-              <Input type="text" value={age} onChange={this.changeAge} />
-            </FormSegment>
-            <FormSegment title="Instagram ID" optional>
-              <Input value={instagramId} onChange={this.changeInstagramId} />
-            </FormSegment>
-            <FormSegment title="Description" optional>
-              <Input
-                value={description}
-                onChange={this.changeDescription}
-                multiple
-              />
-            </FormSegment>
-            <FormSegment title="Upload Images" optional>
-              <Dropzone
-                onDrop={this.onImageDrop}
-                accept="image/*"
-                multiple={false}
-              >
-                {({ getRootProps, getInputProps }) => {
-                  return (
-                    <DropArea {...getRootProps()}>
-                      <Input {...getInputProps()} />
-                      {
-                        <>
-                          <P>
-                            Drag and drop his or photos here or click to select
-                            photos to upload.
-                          </P>
-                          <FaUpload size={40} color="#000" />
-                        </>
-                      }
-                    </DropArea>
-                  );
-                }}
-              </Dropzone>
-              {!!uploadedFileCloudinaryUrl && (
-                <>
-                  <P>{uploadedFile.name}</P>
-                  <Img src={uploadedFileCloudinaryUrl} />
-                </>
-              )}
-            </FormSegment>
-            <ThisButton primary disabled={disabled}>
-              Create New Review
-            </ThisButton>
-          </Form>
+          <Mutation mutation={newReview}>
+            {newReview => (
+              <Form onSubmit={() => this.onSubmit(newReview)}>
+                <FormSegment title="Username">
+                  <Input value={username} onChange={this.changeUsername} />
+                </FormSegment>
+                <FormSegment
+                  title="Rating"
+                  valueIndicator={`${rating || "-"} / 10`}
+                >
+                  <StarContainer>
+                    <StarRatingComponent
+                      name="Rating"
+                      starCount={10}
+                      value={rating}
+                      onStarClick={this.changeRating}
+                      starColor={PRIMARY_COLOR}
+                      emptyStarColor="#DCDCDC"
+                      renderStarIcon={() => <FaStar />}
+                    />
+                  </StarContainer>
+                </FormSegment>
+                <FormSegment title="First name" optional>
+                  <Input value={firstName} onChange={this.changeFirstName} />
+                </FormSegment>
+                <FormSegment title="Last name" optional>
+                  <Input value={lastName} onChange={this.changeLastName} />
+                </FormSegment>
+                <FormSegment title="Age" optional>
+                  <Input type="text" value={age} onChange={this.changeAge} />
+                </FormSegment>
+                <FormSegment title="Instagram ID" optional>
+                  <Input
+                    value={instagramId}
+                    onChange={this.changeInstagramId}
+                  />
+                </FormSegment>
+                <FormSegment title="Description" optional>
+                  <Input
+                    value={description}
+                    onChange={this.changeDescription}
+                    multiple
+                  />
+                </FormSegment>
+                <FormSegment title="Upload Images" optional>
+                  <Dropzone
+                    onDrop={this.onImageDrop}
+                    accept="image/*"
+                    multiple={false}
+                  >
+                    {({ getRootProps, getInputProps }) => {
+                      return (
+                        <DropArea {...getRootProps()}>
+                          <Input {...getInputProps()} />
+                          {
+                            <>
+                              <P>
+                                Drag and drop his or photos here or click to
+                                select photos to upload.
+                              </P>
+                              <FaUpload size={40} color="#000" />
+                            </>
+                          }
+                        </DropArea>
+                      );
+                    }}
+                  </Dropzone>
+                  {!!uploadedFileCloudinaryUrl && (
+                    <>
+                      <P>{uploadedFile.name}</P>
+                      <Img src={uploadedFileCloudinaryUrl} />
+                    </>
+                  )}
+                </FormSegment>
+                <ThisButton primary disabled={disabled}>
+                  Create New Review
+                </ThisButton>
+              </Form>
+            )}
+          </Mutation>
         </ThisContent>
       </Container>
     );
