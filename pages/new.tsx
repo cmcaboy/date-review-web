@@ -6,14 +6,15 @@ import request from "superagent";
 import { Content, Container, P, Input, Button, H1 } from "../components/common";
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
-import { FaUpload } from "react-icons/fa";
+import { FaUpload, FaStar } from "react-icons/fa";
 import { PRIMARY_COLOR } from "../variables";
 import FormSegment from "../components/common/FormSegment";
 
 // TODO: control image size
 // TODO: Compress images?
 // TODO: Modularize image upload
-// TODO: Allow multiple images to be uplaoded at once
+// TODO: Allow multiple images to be uploaded at once
+// TODO: put Cloudinary variables in environment variables
 
 const CLOUDINARY_UPLOAD_PRESET = "image-upload";
 const CLOUDINARY_UPLOAD_URL =
@@ -25,6 +26,7 @@ interface NewState {
   username: string;
   firstName: string;
   lastName: string;
+  instagramId: string;
   age: number | null;
   photo: string;
   rating: number | null;
@@ -42,6 +44,7 @@ class New extends React.Component<NewProps, NewState> {
       username: "",
       firstName: "",
       lastName: "",
+      instagramId: "",
       age: null,
       rating: null,
       description: "",
@@ -58,8 +61,22 @@ class New extends React.Component<NewProps, NewState> {
     this.setState({ firstName: e.target.value });
   changeLastName = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ lastName: e.target.value });
-  changeAge = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ age: parseInt(e.target.value) });
+  changeInstagramId = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.setState({ instagramId: e.target.value });
+  changeAge = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // TODO: Prevent non numbers from being inputted.
+    const re = /^[0-9\b]+$/;
+
+    // if value is not blank, then test the regex
+
+    console.log("changeAge: ", e.target.value);
+    if (e.target.value === "" || re.test(e.target.value)) {
+      console.log("set state");
+      return this.setState({
+        age: e.target.value === "" ? null : parseInt(e.target.value)
+      });
+    }
+  };
   changeRating = (rating: number) => this.setState({ rating });
   changeDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ description: e.target.value });
@@ -112,12 +129,14 @@ class New extends React.Component<NewProps, NewState> {
       username,
       firstName,
       lastName,
+      instagramId,
       age,
       rating,
       description,
       uploadedFileCloudinaryUrl,
       uploadedFile
     } = this.state;
+    console.log("age: ", age);
     const disabled = !username || !rating;
     return (
       <Container>
@@ -138,7 +157,8 @@ class New extends React.Component<NewProps, NewState> {
                   value={rating}
                   onStarClick={this.changeRating}
                   starColor={PRIMARY_COLOR}
-                  emptyStarColor="#fff"
+                  emptyStarColor="#DCDCDC"
+                  renderStarIcon={() => <FaStar />}
                 />
               </StarContainer>
             </FormSegment>
@@ -149,7 +169,10 @@ class New extends React.Component<NewProps, NewState> {
               <Input value={lastName} onChange={this.changeLastName} />
             </FormSegment>
             <FormSegment title="Age" optional>
-              <Input value={age} onChange={this.changeAge} />
+              <Input type="text" value={age} onChange={this.changeAge} />
+            </FormSegment>
+            <FormSegment title="Instagram ID" optional>
+              <Input value={instagramId} onChange={this.changeInstagramId} />
             </FormSegment>
             <FormSegment title="Description" optional>
               <Input
