@@ -10,7 +10,7 @@ import { FaUpload, FaStar } from "react-icons/fa";
 import { PRIMARY_COLOR } from "../variables";
 import FormSegment from "../components/common/FormSegment";
 import { Mutation } from "react-apollo";
-import { newReview } from "apollo/mutations";
+import { NEW_REVIEW } from "../apollo/mutations";
 
 // TODO: control image size
 // TODO: Compress images?
@@ -71,9 +71,7 @@ class New extends React.Component<NewProps, NewState> {
 
     // if value is not blank, then test the regex
 
-    console.log("changeAge: ", e.target.value);
     if (e.target.value === "" || re.test(e.target.value)) {
-      console.log("set state");
       return this.setState({
         age: e.target.value === "" ? null : parseInt(e.target.value)
       });
@@ -138,15 +136,37 @@ class New extends React.Component<NewProps, NewState> {
       uploadedFileCloudinaryUrl,
       uploadedFile
     } = this.state;
-    console.log("age: ", age);
     const disabled = !username || !rating;
     return (
       <Container>
         <ThisContent>
           <Heading>Leave a new review</Heading>
-          <Mutation mutation={newReview}>
+          <Mutation mutation={NEW_REVIEW}>
             {newReview => (
-              <Form onSubmit={() => this.onSubmit(newReview)}>
+              <Form
+                onSubmit={async e => {
+                  e.preventDefault();
+                  newReview({
+                    variables: {
+                      // username,
+                      // firstName,
+                      // lastName,
+                      // instagramId,
+                      age,
+                      rating,
+                      description,
+                      personId: 10,
+                      authorId: 11,
+                      title: "test review"
+                    },
+                    update: (proxy, result) => {
+                      console.log("proxy: ", proxy);
+                      console.log("result: ", result);
+                    }
+                  });
+                  // console.log("response: ", response);
+                }}
+              >
                 <FormSegment title="Username">
                   <Input value={username} onChange={this.changeUsername} />
                 </FormSegment>

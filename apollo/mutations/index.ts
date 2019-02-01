@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
-export const newReview = gql`
-  mutation NewReview(
+export const NEW_REVIEW = gql`
+  mutation newReview(
     $title: String!
     $description: String
     $rating: Int
@@ -18,7 +18,6 @@ export const newReview = gql`
       id
       title
       description
-      datetime
       rating
     }
   }
