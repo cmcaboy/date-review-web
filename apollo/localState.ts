@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 
 export const resolvers = {
   Mutation: {}
@@ -10,8 +10,10 @@ export const defaults = {
   }
 };
 
-export const typeDefs = gql`
-  extend type Query {
-    isLoggedIn: Boolean!
-  }
-`;
+// export const typeDefs = gql`
+//   extend type Query {
+//     isLoggedIn: Boolean!
+//   }
+// `;
+
+export const typeDefs = {};

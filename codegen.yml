@@ -1,0 +1,9 @@
+overwrite: true
+schema: "https://date-review-server.herokuapp.com/graphql"
+documents: "./apollo/**/*.ts"
+generates:
+  generated/apolloComponents.tsx:
+    plugins:
+      - "typescript-common"
+      - "typescript-client"
+      - "typescript-react-apollo"
