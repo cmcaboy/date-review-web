@@ -33,7 +33,6 @@ export const FIND_REVIEW = gql`
         id
         username
       }
-      datetime
       person {
         id
         username

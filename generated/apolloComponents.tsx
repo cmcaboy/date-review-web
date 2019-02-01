@@ -369,8 +369,6 @@ export namespace Review {
 
     author: Maybe<Author>;
 
-    datetime: Maybe<number>;
-
     person: Maybe<Person>;
   };
 
@@ -1048,7 +1046,6 @@ export namespace Review {
           id
           username
         }
-        datetime
         person {
           id
           username
