@@ -3,6 +3,8 @@ schema: "https://date-review-server.herokuapp.com/graphql"
 documents: "./apollo/**/*.ts"
 generates:
   generated/apolloComponents.tsx:
+    config:
+      noNamespaces: true
     plugins:
       - "typescript-common"
       - "typescript-client"

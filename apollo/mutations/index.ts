@@ -4,7 +4,7 @@ export const NEW_REVIEW = gql`
   mutation newReview(
     $title: String!
     $description: String
-    $rating: Int
+    $rating: Int!
     $personId: ID
     $authorId: ID
   ) {
@@ -56,6 +56,52 @@ export const NEW_USER = gql`
       }
       photos {
         url
+      }
+    }
+  }
+`;
+
+export const NEW_USER_AND_REVIEW = gql`
+  mutation NewUserAndReview(
+    $username: String!
+    $firstName: String
+    $lastName: String
+    $age: Int
+    $email: String
+    $instagramId: String
+    $platform: ID
+    $photos: [String]
+    $title: String!
+    $description: String
+    $rating: Int!
+    $authorId: ID
+  ) {
+    newUserAndReview(
+      username: $username
+      firstName: $firstName
+      lastName: $lastName
+      age: $age
+      email: $email
+      instagramId: $instagramId
+      platform: $platform
+      photos: $photos
+      title: $title
+      description: $description
+      rating: $rating
+      authorId: $authorId
+    ) {
+      id
+      title
+      description
+      rating
+      datetime
+      author {
+        id
+        username
+      }
+      person {
+        id
+        username
       }
     }
   }

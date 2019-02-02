@@ -7,20 +7,33 @@ import { Content, Container, P, Input, Button, H1 } from "../components/common";
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import { FaUpload, FaStar } from "react-icons/fa";
+import Select from "react-select";
 import { PRIMARY_COLOR } from "../variables";
 import FormSegment from "../components/common/FormSegment";
 import { Mutation } from "react-apollo";
-import { NEW_REVIEW } from "../apollo/mutations";
+import { NEW_USER_AND_REVIEW } from "../apollo/mutations";
+import {
+  NewUserAndReview,
+  NewUserAndReviewComponent
+} from "generated/apolloComponents";
 
 // TODO: control image size
 // TODO: Compress images?
 // TODO: Modularize image upload
 // TODO: Allow multiple images to be uploaded at once
 // TODO: put Cloudinary variables in environment variables
+// TODO: convert form to formik
+
+// * Guest is ID 20
 
 const CLOUDINARY_UPLOAD_PRESET = "image-upload";
 const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/mcaboy-digital/image/upload";
+
+const platforms = [
+  { value: 5, label: "Bumble" },
+  { value: 6, label: "Tinder" }
+];
 
 interface NewProps {}
 
@@ -30,13 +43,16 @@ interface NewState {
   lastName: string;
   instagramId: string;
   age: number | null;
+  email: string;
   photo: string;
   rating: number | null;
   description: string;
+  title: string;
   loading: boolean;
   uploadedFileCloudinaryUrl: string;
   uploadedFile: any;
   error: string;
+  platform: string | null;
 }
 
 class New extends React.Component<NewProps, NewState> {
@@ -47,22 +63,28 @@ class New extends React.Component<NewProps, NewState> {
       firstName: "",
       lastName: "",
       instagramId: "",
+      email: "",
       age: null,
       rating: null,
       description: "",
+      title: "",
       loading: false,
       uploadedFileCloudinaryUrl: "",
       uploadedFile: null,
       photo: "",
-      error: ""
+      error: "",
+      platform: ""
     };
   }
   changeUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ username: e.target.value });
+  changePlatform = (platform: any) => this.setState({ platform });
   changeFirstName = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ firstName: e.target.value });
   changeLastName = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ lastName: e.target.value });
+  changeEmail = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.setState({ email: e.target.value });
   changeInstagramId = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ instagramId: e.target.value });
   changeAge = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,8 +102,10 @@ class New extends React.Component<NewProps, NewState> {
   changeRating = (rating: number) => this.setState({ rating });
   changeDescription = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ description: e.target.value });
+  changeTitle = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.setState({ title: e.target.value });
 
-  changePhoto = e => this.setState({ photo: e.target.value });
+  changePhoto = (e: any) => this.setState({ photo: e.target.value });
 
   onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -127,40 +151,44 @@ class New extends React.Component<NewProps, NewState> {
   render(): JSX.Element {
     const {
       username,
+      platform,
       firstName,
       lastName,
       instagramId,
       age,
+      email,
       rating,
+      title,
       description,
       uploadedFileCloudinaryUrl,
       uploadedFile
     } = this.state;
+    console.log("platform: ", platform);
     const disabled = !username || !rating;
     return (
       <Container>
         <ThisContent>
           <Heading>Leave a new review</Heading>
-          <Mutation mutation={NEW_REVIEW}>
-            {newReview => (
+          <NewUserAndReviewComponent>
+            {newUserAndReview => (
               <Form
                 onSubmit={async e => {
                   e.preventDefault();
-                  newReview({
+                  newUserAndReview({
                     variables: {
-                      // username,
-                      // firstName,
-                      // lastName,
-                      // instagramId,
                       age,
-                      rating,
+                      authorId: "20",
                       description,
-                      personId: 10,
-                      authorId: 11,
-                      title: "test review"
+                      email,
+                      firstName,
+                      instagramId,
+                      lastName,
+                      platform,
+                      rating,
+                      title,
+                      username
                     },
-                    update: (proxy, result) => {
-                      console.log("proxy: ", proxy);
+                    update: (_, result) => {
                       console.log("result: ", result);
                     }
                   });
@@ -170,21 +198,12 @@ class New extends React.Component<NewProps, NewState> {
                 <FormSegment title="Username">
                   <Input value={username} onChange={this.changeUsername} />
                 </FormSegment>
-                <FormSegment
-                  title="Rating"
-                  valueIndicator={`${rating || "-"} / 10`}
-                >
-                  <StarContainer>
-                    <StarRatingComponent
-                      name="Rating"
-                      starCount={10}
-                      value={rating}
-                      onStarClick={this.changeRating}
-                      starColor={PRIMARY_COLOR}
-                      emptyStarColor="#DCDCDC"
-                      renderStarIcon={() => <FaStar />}
-                    />
-                  </StarContainer>
+                <FormSegment title="Platform" optional>
+                  <Select
+                    value={platform}
+                    onChange={this.changePlatform}
+                    options={platforms}
+                  />
                 </FormSegment>
                 <FormSegment title="First name" optional>
                   <Input value={firstName} onChange={this.changeFirstName} />
@@ -195,17 +214,17 @@ class New extends React.Component<NewProps, NewState> {
                 <FormSegment title="Age" optional>
                   <Input type="text" value={age} onChange={this.changeAge} />
                 </FormSegment>
+                <FormSegment title="Email" optional>
+                  <Input
+                    type="text"
+                    value={email}
+                    onChange={this.changeEmail}
+                  />
+                </FormSegment>
                 <FormSegment title="Instagram ID" optional>
                   <Input
                     value={instagramId}
                     onChange={this.changeInstagramId}
-                  />
-                </FormSegment>
-                <FormSegment title="Description" optional>
-                  <Input
-                    value={description}
-                    onChange={this.changeDescription}
-                    multiple
                   />
                 </FormSegment>
                 <FormSegment title="Upload Images" optional>
@@ -238,12 +257,39 @@ class New extends React.Component<NewProps, NewState> {
                     </>
                   )}
                 </FormSegment>
+                <FormSegment title="Review Title">
+                  <Input value={title} onChange={this.changeTitle} multiple />
+                </FormSegment>
+                <FormSegment title="Review Description" optional>
+                  <Input
+                    value={description}
+                    onChange={this.changeDescription}
+                    multiple
+                  />
+                </FormSegment>
+                <FormSegment
+                  title="Review Rating"
+                  valueIndicator={`${rating || "-"} / 10`}
+                >
+                  <StarContainer>
+                    <StarRatingComponent
+                      name="Rating"
+                      starCount={10}
+                      value={rating}
+                      onStarClick={this.changeRating}
+                      starColor={PRIMARY_COLOR}
+                      emptyStarColor="#DCDCDC"
+                      renderStarIcon={() => <FaStar />}
+                    />
+                  </StarContainer>
+                </FormSegment>
+
                 <ThisButton primary disabled={disabled}>
                   Create New Review
                 </ThisButton>
               </Form>
             )}
-          </Mutation>
+          </NewUserAndReviewComponent>
         </ThisContent>
       </Container>
     );

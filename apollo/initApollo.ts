@@ -32,7 +32,7 @@ function create(initialState: any, { getToken }: Options) {
   // const cache = new InMemoryCache({ dataIdFromObject: object => object.id });
   const cache = new InMemoryCache().restore(initialState || {});
 
-  console.log("GRAPHQL_SERVER", process.env.GRAPHQL_SERVER);
+  // console.log("GRAPHQL_SERVER", process.env.GRAPHQL_SERVER);
 
   // persistCache allows apollo to store the cache or local state to AsyncStorage
   // This works similar to redux-persist.
@@ -52,25 +52,19 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
-  // TODO: export GRAPHQL server variables
-  // TODO: create env variable
-
   // We put both the state link and http link in httpLink to let the application
   // query the application state when applicable
   const httpLink = ApolloLink.from([
     stateLink,
     new HttpLink({
-      // uri: `${process.env.GRAPHQL_SERVER}/graphql`,
+      uri: `${process.env.GRAPHQL_SERVER_URL}`,
       // uri: `http://localhost:4000/graphql`,
-      uri: `https://date-review-server.herokuapp.com/graphql`,
       // credentials: "include" // * from ben awad
       fetchOptions: {
         mode: "no-cors"
       }
     })
   ]);
-
-  console.log("httpLink: ", httpLink);
 
   // TODO: Setup subscriptions with web sockets
   // Websockets are used for subscriptions.
@@ -85,9 +79,7 @@ function create(initialState: any, { getToken }: Options) {
   // the web sockets link. If false, it uses the http link.
   const link = split(
     ({ query }) => {
-      console.log("query: ", query);
       const definition = getMainDefinition(query);
-      console.log("definition: ", definition);
       return (
         definition.kind === "OperationDefinition" &&
         definition.operation === "subscription"
@@ -99,11 +91,9 @@ function create(initialState: any, { getToken }: Options) {
   );
   // const link = httpLink;
 
-  const authLink = setContext((first, second) => {
+  const authLink = setContext((_, __) => {
     const token = getToken();
     // console.log("token: ", token);
-    console.log("first: ", first);
-    console.log("headers: ", second);
     return {
       headers: {
         // ...headers,
@@ -111,9 +101,6 @@ function create(initialState: any, { getToken }: Options) {
       }
     };
   });
-
-  console.log("link: ", authLink.concat(link));
-  console.log("isBrowser: ", isBrowser);
 
   return new ApolloClient({
     cache,

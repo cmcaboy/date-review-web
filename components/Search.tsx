@@ -3,6 +3,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Input, Button } from "../components/common";
+import { FaSearch } from "react-icons/fa";
+import { PersonComponent } from "generated/apolloComponents";
 
 interface SearchProps {}
 
@@ -28,17 +30,27 @@ class Search extends React.Component<SearchProps, SearchState> {
           onChange={this.onChange}
           value={name}
         />
-        <SearchButton>Search</SearchButton>
+        <SearchButton>
+          <FaSearch size={24} />
+        </SearchButton>
+        <FindUsersComponent variables={{ name }}>
+          {({ data, error, loading }) => {
+            if (!data || loading || error) return;
+            return <UserCard data={data} />;
+          }}
+        </FindUsersComponent>
       </Div>
     );
   }
 }
 
 const SearchButton = styled(Button)`
+  min-height: 0;
+  min-width: 0;
   height: 45px;
-  width: 150px;
+  width: 70px;
   font-size: 16px;
-  margin: 2px 2px;
+  margin: 2px 0px;
 `;
 
 const Div = styled.div`

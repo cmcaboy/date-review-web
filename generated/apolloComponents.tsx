@@ -12,422 +12,449 @@ export type Upload = any;
 // Documents
 // ====================================================
 
-export namespace NewReview {
-  export type Variables = {
-    title: string;
-    description?: Maybe<string>;
-    rating?: Maybe<number>;
-    personId?: Maybe<string>;
-    authorId?: Maybe<string>;
-  };
+export type NewReviewVariables = {
+  title: string;
+  description?: Maybe<string>;
+  rating: number;
+  personId?: Maybe<string>;
+  authorId?: Maybe<string>;
+};
 
-  export type Mutation = {
-    __typename?: "Mutation";
+export type NewReviewMutation = {
+  __typename?: "Mutation";
 
-    newReview: Maybe<NewReview>;
-  };
+  newReview: Maybe<NewReviewNewReview>;
+};
 
-  export type NewReview = {
-    __typename?: "Review";
+export type NewReviewNewReview = {
+  __typename?: "Review";
 
-    id: Maybe<string>;
+  id: Maybe<string>;
 
-    title: Maybe<string>;
+  title: Maybe<string>;
 
-    description: Maybe<string>;
+  description: Maybe<string>;
 
-    rating: Maybe<number>;
-  };
-}
+  rating: Maybe<number>;
+};
 
-export namespace NewUser {
-  export type Variables = {
-    username: string;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    age?: Maybe<number>;
-    email?: Maybe<string>;
-    instagramId?: Maybe<string>;
-    platform?: Maybe<string>;
-    photos?: Maybe<(Maybe<string>)[]>;
-  };
+export type NewUserVariables = {
+  username: string;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
+  age?: Maybe<number>;
+  email?: Maybe<string>;
+  instagramId?: Maybe<string>;
+  platform?: Maybe<string>;
+  photos?: Maybe<string[]>;
+};
 
-  export type Mutation = {
-    __typename?: "Mutation";
+export type NewUserMutation = {
+  __typename?: "Mutation";
 
-    newUser: Maybe<NewUser>;
-  };
+  newUser: Maybe<NewUserNewUser>;
+};
 
-  export type NewUser = {
-    __typename?: "Person";
+export type NewUserNewUser = {
+  __typename?: "Person";
 
-    id: Maybe<string>;
+  id: Maybe<string>;
 
-    username: Maybe<string>;
+  username: Maybe<string>;
 
-    firstName: Maybe<string>;
+  firstName: Maybe<string>;
 
-    lastName: Maybe<string>;
+  lastName: Maybe<string>;
 
-    age: Maybe<number>;
+  age: Maybe<number>;
 
-    email: Maybe<string>;
+  email: Maybe<string>;
 
-    instagramId: Maybe<string>;
+  instagramId: Maybe<string>;
 
-    platform: Maybe<Platform>;
+  platform: Maybe<NewUserPlatform>;
 
-    photos: Maybe<(Maybe<Photos>)[]>;
-  };
+  photos: Maybe<NewUserPhotos[]>;
+};
 
-  export type Platform = {
-    __typename?: "Platform";
+export type NewUserPlatform = {
+  __typename?: "Platform";
 
-    name: Maybe<string>;
-  };
+  name: Maybe<string>;
+};
 
-  export type Photos = {
-    __typename?: "Photo";
+export type NewUserPhotos = {
+  __typename?: "Photo";
 
-    url: Maybe<string>;
-  };
-}
+  url: Maybe<string>;
+};
 
-export namespace NewComment {
-  export type Variables = {
-    text: string;
-    authorId?: Maybe<string>;
-    reviewId: string;
-  };
+export type NewUserAndReviewVariables = {
+  username: string;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
+  age?: Maybe<number>;
+  email?: Maybe<string>;
+  instagramId?: Maybe<string>;
+  platform?: Maybe<string>;
+  photos?: Maybe<string[]>;
+  title: string;
+  description?: Maybe<string>;
+  rating: number;
+  authorId?: Maybe<string>;
+};
 
-  export type Mutation = {
-    __typename?: "Mutation";
+export type NewUserAndReviewMutation = {
+  __typename?: "Mutation";
 
-    newComment: Maybe<NewComment>;
-  };
+  newUserAndReview: Maybe<NewUserAndReviewNewUserAndReview>;
+};
 
-  export type NewComment = {
-    __typename?: "Comment";
+export type NewUserAndReviewNewUserAndReview = {
+  __typename?: "Review";
 
-    id: Maybe<string>;
+  id: Maybe<string>;
 
-    text: Maybe<string>;
+  title: Maybe<string>;
 
-    datetime: Maybe<number>;
-  };
-}
+  description: Maybe<string>;
 
-export namespace NewPlatform {
-  export type Variables = {
-    name: string;
-    description?: Maybe<string>;
-  };
+  rating: Maybe<number>;
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  datetime: Maybe<number>;
 
-    newPlatform: Maybe<NewPlatform>;
-  };
+  author: Maybe<NewUserAndReviewAuthor>;
 
-  export type NewPlatform = {
-    __typename?: "Platform";
+  person: Maybe<NewUserAndReviewPerson>;
+};
 
-    id: Maybe<string>;
+export type NewUserAndReviewAuthor = {
+  __typename?: "Person";
 
-    name: Maybe<string>;
+  id: Maybe<string>;
 
-    description: Maybe<string>;
-  };
-}
+  username: Maybe<string>;
+};
 
-export namespace EditUser {
-  export type Variables = {
-    id: string;
-    username?: Maybe<string>;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    age?: Maybe<number>;
-    email?: Maybe<string>;
-    instagramId?: Maybe<string>;
-    platform?: Maybe<string>;
-    photos?: Maybe<(Maybe<string>)[]>;
-  };
+export type NewUserAndReviewPerson = {
+  __typename?: "Person";
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  id: Maybe<string>;
 
-    editUser: Maybe<EditUser>;
-  };
+  username: Maybe<string>;
+};
 
-  export type EditUser = {
-    __typename?: "Person";
+export type NewCommentVariables = {
+  text: string;
+  authorId?: Maybe<string>;
+  reviewId: string;
+};
 
-    id: Maybe<string>;
+export type NewCommentMutation = {
+  __typename?: "Mutation";
 
-    username: Maybe<string>;
+  newComment: Maybe<NewCommentNewComment>;
+};
 
-    firstName: Maybe<string>;
+export type NewCommentNewComment = {
+  __typename?: "Comment";
 
-    lastName: Maybe<string>;
+  id: Maybe<string>;
 
-    age: Maybe<number>;
+  text: Maybe<string>;
 
-    email: Maybe<string>;
+  datetime: Maybe<number>;
+};
 
-    instagramId: Maybe<string>;
+export type NewPlatformVariables = {
+  name: string;
+  description?: Maybe<string>;
+};
 
-    platform: Maybe<Platform>;
+export type NewPlatformMutation = {
+  __typename?: "Mutation";
 
-    photos: Maybe<(Maybe<Photos>)[]>;
-  };
+  newPlatform: Maybe<NewPlatformNewPlatform>;
+};
 
-  export type Platform = {
-    __typename?: "Platform";
+export type NewPlatformNewPlatform = {
+  __typename?: "Platform";
 
-    id: Maybe<string>;
+  id: Maybe<string>;
 
-    name: Maybe<string>;
-  };
+  name: Maybe<string>;
 
-  export type Photos = {
-    __typename?: "Photo";
+  description: Maybe<string>;
+};
 
-    url: Maybe<string>;
-  };
-}
+export type EditUserVariables = {
+  id: string;
+  username?: Maybe<string>;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
+  age?: Maybe<number>;
+  email?: Maybe<string>;
+  instagramId?: Maybe<string>;
+  platform?: Maybe<string>;
+  photos?: Maybe<string[]>;
+};
 
-export namespace EditReview {
-  export type Variables = {
-    id: string;
-    title: string;
-    description?: Maybe<string>;
-    rating?: Maybe<number>;
-    userId?: Maybe<string>;
-  };
+export type EditUserMutation = {
+  __typename?: "Mutation";
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  editUser: Maybe<EditUserEditUser>;
+};
 
-    editReview: Maybe<EditReview>;
-  };
+export type EditUserEditUser = {
+  __typename?: "Person";
 
-  export type EditReview = {
-    __typename?: "Review";
+  id: Maybe<string>;
 
-    id: Maybe<string>;
+  username: Maybe<string>;
 
-    title: Maybe<string>;
+  firstName: Maybe<string>;
 
-    description: Maybe<string>;
+  lastName: Maybe<string>;
 
-    rating: Maybe<number>;
-  };
-}
+  age: Maybe<number>;
 
-export namespace EditComment {
-  export type Variables = {
-    id: string;
-    text: string;
-  };
+  email: Maybe<string>;
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  instagramId: Maybe<string>;
 
-    editComment: Maybe<EditComment>;
-  };
+  platform: Maybe<EditUserPlatform>;
 
-  export type EditComment = {
-    __typename?: "Comment";
+  photos: Maybe<EditUserPhotos[]>;
+};
 
-    id: Maybe<string>;
+export type EditUserPlatform = {
+  __typename?: "Platform";
 
-    text: Maybe<string>;
+  id: Maybe<string>;
 
-    datetime: Maybe<number>;
-  };
-}
+  name: Maybe<string>;
+};
 
-export namespace DeleteUser {
-  export type Variables = {
-    id: string;
-  };
+export type EditUserPhotos = {
+  __typename?: "Photo";
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  url: Maybe<string>;
+};
 
-    deleteUser: Maybe<boolean>;
-  };
-}
+export type EditReviewVariables = {
+  id: string;
+  title: string;
+  description?: Maybe<string>;
+  rating?: Maybe<number>;
+  userId?: Maybe<string>;
+};
 
-export namespace DeleteReview {
-  export type Variables = {
-    id: string;
-  };
+export type EditReviewMutation = {
+  __typename?: "Mutation";
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  editReview: Maybe<EditReviewEditReview>;
+};
 
-    deleteReview: Maybe<boolean>;
-  };
-}
+export type EditReviewEditReview = {
+  __typename?: "Review";
 
-export namespace DeleteComment {
-  export type Variables = {
-    id: string;
-  };
+  id: Maybe<string>;
 
-  export type Mutation = {
-    __typename?: "Mutation";
+  title: Maybe<string>;
 
-    deleteComment: Maybe<boolean>;
-  };
-}
+  description: Maybe<string>;
 
-export namespace DeletePhoto {
-  export type Variables = {
-    id: string;
-  };
+  rating: Maybe<number>;
+};
 
-  export type Mutation = {
-    __typename?: "Mutation";
+export type EditCommentVariables = {
+  id: string;
+  text: string;
+};
 
-    deletePhoto: Maybe<boolean>;
-  };
-}
+export type EditCommentMutation = {
+  __typename?: "Mutation";
 
-export namespace Person {
-  export type Variables = {
-    id?: Maybe<string>;
-  };
+  editComment: Maybe<EditCommentEditComment>;
+};
 
-  export type Query = {
-    __typename?: "Query";
+export type EditCommentEditComment = {
+  __typename?: "Comment";
 
-    person: Maybe<Person>;
-  };
+  id: Maybe<string>;
 
-  export type Person = {
-    __typename?: "Person";
+  text: Maybe<string>;
 
-    id: Maybe<string>;
+  datetime: Maybe<number>;
+};
 
-    username: Maybe<string>;
+export type DeleteUserVariables = {
+  id: string;
+};
 
-    firstName: Maybe<string>;
+export type DeleteUserMutation = {
+  __typename?: "Mutation";
 
-    lastName: Maybe<string>;
+  deleteUser: Maybe<boolean>;
+};
 
-    email: Maybe<string>;
+export type DeleteReviewVariables = {
+  id: string;
+};
 
-    age: Maybe<number>;
+export type DeleteReviewMutation = {
+  __typename?: "Mutation";
 
-    datetime: Maybe<number>;
+  deleteReview: Maybe<boolean>;
+};
 
-    isActive: Maybe<boolean>;
+export type DeleteCommentVariables = {
+  id: string;
+};
 
-    photos: Maybe<(Maybe<Photos>)[]>;
+export type DeleteCommentMutation = {
+  __typename?: "Mutation";
 
-    platform: Maybe<Platform>;
-  };
+  deleteComment: Maybe<boolean>;
+};
 
-  export type Photos = {
-    __typename?: "Photo";
+export type DeletePhotoVariables = {
+  id: string;
+};
 
-    url: Maybe<string>;
-  };
+export type DeletePhotoMutation = {
+  __typename?: "Mutation";
 
-  export type Platform = {
-    __typename?: "Platform";
+  deletePhoto: Maybe<boolean>;
+};
 
-    name: Maybe<string>;
-  };
-}
+export type PersonVariables = {
+  id?: Maybe<string>;
+};
 
-export namespace Review {
-  export type Variables = {
-    id: string;
-  };
+export type PersonQuery = {
+  __typename?: "Query";
 
-  export type Query = {
-    __typename?: "Query";
+  person: Maybe<PersonPerson>;
+};
 
-    review: Maybe<Review>;
-  };
+export type PersonPerson = {
+  __typename?: "Person";
 
-  export type Review = {
-    __typename?: "Review";
+  id: Maybe<string>;
 
-    id: Maybe<string>;
+  username: Maybe<string>;
 
-    title: Maybe<string>;
+  firstName: Maybe<string>;
 
-    description: Maybe<string>;
+  lastName: Maybe<string>;
 
-    rating: Maybe<number>;
+  email: Maybe<string>;
 
-    datetime: Maybe<number>;
+  age: Maybe<number>;
 
-    author: Maybe<Author>;
+  datetime: Maybe<number>;
 
-    person: Maybe<Person>;
-  };
+  isActive: Maybe<boolean>;
 
-  export type Author = {
-    __typename?: "Person";
+  photos: Maybe<PersonPhotos[]>;
 
-    id: Maybe<string>;
+  platform: Maybe<PersonPlatform>;
+};
 
-    username: Maybe<string>;
-  };
+export type PersonPhotos = {
+  __typename?: "Photo";
 
-  export type Person = {
-    __typename?: "Person";
+  url: Maybe<string>;
+};
 
-    id: Maybe<string>;
+export type PersonPlatform = {
+  __typename?: "Platform";
 
-    username: Maybe<string>;
-  };
-}
+  name: Maybe<string>;
+};
 
-export namespace Comment {
-  export type Variables = {
-    id: string;
-  };
+export type ReviewVariables = {
+  id: string;
+};
 
-  export type Query = {
-    __typename?: "Query";
+export type ReviewQuery = {
+  __typename?: "Query";
 
-    comment: Maybe<Comment>;
-  };
+  review: Maybe<ReviewReview>;
+};
 
-  export type Comment = {
-    __typename?: "Comment";
+export type ReviewReview = {
+  __typename?: "Review";
 
-    id: Maybe<string>;
+  id: Maybe<string>;
 
-    author: Maybe<Author>;
+  title: Maybe<string>;
 
-    text: Maybe<string>;
+  description: Maybe<string>;
 
-    datetime: Maybe<number>;
+  rating: Maybe<number>;
 
-    review: Maybe<Review>;
-  };
+  datetime: Maybe<number>;
 
-  export type Author = {
-    __typename?: "Person";
+  author: Maybe<ReviewAuthor>;
 
-    id: Maybe<string>;
+  person: Maybe<ReviewPerson>;
+};
 
-    username: Maybe<string>;
-  };
+export type ReviewAuthor = {
+  __typename?: "Person";
 
-  export type Review = {
-    __typename?: "Review";
+  id: Maybe<string>;
 
-    id: Maybe<string>;
-  };
-}
+  username: Maybe<string>;
+};
+
+export type ReviewPerson = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+};
+
+export type CommentVariables = {
+  id: string;
+};
+
+export type CommentQuery = {
+  __typename?: "Query";
+
+  comment: Maybe<CommentComment>;
+};
+
+export type CommentComment = {
+  __typename?: "Comment";
+
+  id: Maybe<string>;
+
+  author: Maybe<CommentAuthor>;
+
+  text: Maybe<string>;
+
+  datetime: Maybe<number>;
+
+  review: Maybe<CommentReview>;
+};
+
+export type CommentAuthor = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+};
+
+export type CommentReview = {
+  __typename?: "Review";
+
+  id: Maybe<string>;
+};
 
 import * as ReactApollo from "react-apollo";
 import * as React from "react";
@@ -438,699 +465,823 @@ import gql from "graphql-tag";
 // Components
 // ====================================================
 
-export namespace NewReview {
-  export const Document = gql`
-    mutation newReview(
-      $title: String!
-      $description: String
-      $rating: Int
-      $personId: ID
-      $authorId: ID
+export const NewReviewDocument = gql`
+  mutation newReview(
+    $title: String!
+    $description: String
+    $rating: Int!
+    $personId: ID
+    $authorId: ID
+  ) {
+    newReview(
+      title: $title
+      description: $description
+      rating: $rating
+      personId: $personId
+      authorId: $authorId
     ) {
-      newReview(
-        title: $title
-        description: $description
-        rating: $rating
-        personId: $personId
-        authorId: $authorId
-      ) {
-        id
-        title
-        description
-        rating
-      }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
+      id
+      title
+      description
+      rating
     }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class NewReviewComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<NewReviewMutation, NewReviewVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<NewReviewMutation, NewReviewVariables>
+        mutation={NewReviewDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
 }
-export namespace NewUser {
-  export const Document = gql`
-    mutation NewUser(
-      $username: String!
-      $firstName: String
-      $lastName: String
-      $age: Int
-      $email: String
-      $instagramId: String
-      $platform: ID
-      $photos: [String]
+export type NewReviewProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<NewReviewMutation, NewReviewVariables>
+> &
+  TChildProps;
+export type NewReviewMutationFn = ReactApollo.MutationFn<
+  NewReviewMutation,
+  NewReviewVariables
+>;
+export function NewReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewReviewMutation,
+        NewReviewVariables,
+        NewReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewReviewMutation,
+    NewReviewVariables,
+    NewReviewProps<TChildProps>
+  >(NewReviewDocument, operationOptions);
+}
+export const NewUserDocument = gql`
+  mutation NewUser(
+    $username: String!
+    $firstName: String
+    $lastName: String
+    $age: Int
+    $email: String
+    $instagramId: String
+    $platform: ID
+    $photos: [String]
+  ) {
+    newUser(
+      username: $username
+      firstName: $firstName
+      lastName: $lastName
+      age: $age
+      email: $email
+      instagramId: $instagramId
+      platform: $platform
+      photos: $photos
     ) {
-      newUser(
-        username: $username
-        firstName: $firstName
-        lastName: $lastName
-        age: $age
-        email: $email
-        instagramId: $instagramId
-        platform: $platform
-        photos: $photos
-      ) {
+      id
+      username
+      firstName
+      lastName
+      age
+      email
+      instagramId
+      platform {
+        name
+      }
+      photos {
+        url
+      }
+    }
+  }
+`;
+export class NewUserComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<NewUserMutation, NewUserVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<NewUserMutation, NewUserVariables>
+        mutation={NewUserDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type NewUserProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<NewUserMutation, NewUserVariables>
+> &
+  TChildProps;
+export type NewUserMutationFn = ReactApollo.MutationFn<
+  NewUserMutation,
+  NewUserVariables
+>;
+export function NewUserHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewUserMutation,
+        NewUserVariables,
+        NewUserProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewUserMutation,
+    NewUserVariables,
+    NewUserProps<TChildProps>
+  >(NewUserDocument, operationOptions);
+}
+export const NewUserAndReviewDocument = gql`
+  mutation NewUserAndReview(
+    $username: String!
+    $firstName: String
+    $lastName: String
+    $age: Int
+    $email: String
+    $instagramId: String
+    $platform: ID
+    $photos: [String]
+    $title: String!
+    $description: String
+    $rating: Int!
+    $authorId: ID
+  ) {
+    newUserAndReview(
+      username: $username
+      firstName: $firstName
+      lastName: $lastName
+      age: $age
+      email: $email
+      instagramId: $instagramId
+      platform: $platform
+      photos: $photos
+      title: $title
+      description: $description
+      rating: $rating
+      authorId: $authorId
+    ) {
+      id
+      title
+      description
+      rating
+      datetime
+      author {
         id
         username
-        firstName
-        lastName
-        age
-        email
-        instagramId
-        platform {
-          name
-        }
-        photos {
-          url
-        }
       }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace NewComment {
-  export const Document = gql`
-    mutation NewComment($text: String!, $authorId: ID, $reviewId: ID!) {
-      newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
+      person {
         id
-        text
-        datetime
+        username
       }
     }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class NewUserAndReviewComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<
+      NewUserAndReviewMutation,
+      NewUserAndReviewVariables
+    >
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<NewUserAndReviewMutation, NewUserAndReviewVariables>
+        mutation={NewUserAndReviewDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
 }
-export namespace NewPlatform {
-  export const Document = gql`
-    mutation NewPlatform($name: String!, $description: String) {
-      newPlatform(name: $name, description: $description) {
+export type NewUserAndReviewProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<NewUserAndReviewMutation, NewUserAndReviewVariables>
+> &
+  TChildProps;
+export type NewUserAndReviewMutationFn = ReactApollo.MutationFn<
+  NewUserAndReviewMutation,
+  NewUserAndReviewVariables
+>;
+export function NewUserAndReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewUserAndReviewMutation,
+        NewUserAndReviewVariables,
+        NewUserAndReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewUserAndReviewMutation,
+    NewUserAndReviewVariables,
+    NewUserAndReviewProps<TChildProps>
+  >(NewUserAndReviewDocument, operationOptions);
+}
+export const NewCommentDocument = gql`
+  mutation NewComment($text: String!, $authorId: ID, $reviewId: ID!) {
+    newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
+      id
+      text
+      datetime
+    }
+  }
+`;
+export class NewCommentComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<NewCommentMutation, NewCommentVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<NewCommentMutation, NewCommentVariables>
+        mutation={NewCommentDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type NewCommentProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<NewCommentMutation, NewCommentVariables>
+> &
+  TChildProps;
+export type NewCommentMutationFn = ReactApollo.MutationFn<
+  NewCommentMutation,
+  NewCommentVariables
+>;
+export function NewCommentHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewCommentMutation,
+        NewCommentVariables,
+        NewCommentProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewCommentMutation,
+    NewCommentVariables,
+    NewCommentProps<TChildProps>
+  >(NewCommentDocument, operationOptions);
+}
+export const NewPlatformDocument = gql`
+  mutation NewPlatform($name: String!, $description: String) {
+    newPlatform(name: $name, description: $description) {
+      id
+      name
+      description
+    }
+  }
+`;
+export class NewPlatformComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<NewPlatformMutation, NewPlatformVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<NewPlatformMutation, NewPlatformVariables>
+        mutation={NewPlatformDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type NewPlatformProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<NewPlatformMutation, NewPlatformVariables>
+> &
+  TChildProps;
+export type NewPlatformMutationFn = ReactApollo.MutationFn<
+  NewPlatformMutation,
+  NewPlatformVariables
+>;
+export function NewPlatformHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        NewPlatformMutation,
+        NewPlatformVariables,
+        NewPlatformProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    NewPlatformMutation,
+    NewPlatformVariables,
+    NewPlatformProps<TChildProps>
+  >(NewPlatformDocument, operationOptions);
+}
+export const EditUserDocument = gql`
+  mutation EditUser(
+    $id: ID!
+    $username: String
+    $firstName: String
+    $lastName: String
+    $age: Int
+    $email: String
+    $instagramId: String
+    $platform: ID
+    $photos: [String]
+  ) {
+    editUser(
+      id: $id
+      username: $username
+      firstName: $firstName
+      lastName: $lastName
+      age: $age
+      email: $email
+      instagramId: $instagramId
+      platform: $platform
+      photos: $photos
+    ) {
+      id
+      username
+      firstName
+      lastName
+      age
+      email
+      instagramId
+      platform {
         id
         name
-        description
+      }
+      photos {
+        url
       }
     }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class EditUserComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<EditUserMutation, EditUserVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<EditUserMutation, EditUserVariables>
+        mutation={EditUserDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
 }
-export namespace EditUser {
-  export const Document = gql`
-    mutation EditUser(
-      $id: ID!
-      $username: String
-      $firstName: String
-      $lastName: String
-      $age: Int
-      $email: String
-      $instagramId: String
-      $platform: ID
-      $photos: [String]
+export type EditUserProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<EditUserMutation, EditUserVariables>
+> &
+  TChildProps;
+export type EditUserMutationFn = ReactApollo.MutationFn<
+  EditUserMutation,
+  EditUserVariables
+>;
+export function EditUserHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        EditUserMutation,
+        EditUserVariables,
+        EditUserProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    EditUserMutation,
+    EditUserVariables,
+    EditUserProps<TChildProps>
+  >(EditUserDocument, operationOptions);
+}
+export const EditReviewDocument = gql`
+  mutation EditReview(
+    $id: ID!
+    $title: String!
+    $description: String
+    $rating: Int
+    $userId: ID
+  ) {
+    editReview(
+      id: $id
+      title: $title
+      description: $description
+      rating: $rating
+      userId: $userId
     ) {
-      editUser(
-        id: $id
-        username: $username
-        firstName: $firstName
-        lastName: $lastName
-        age: $age
-        email: $email
-        instagramId: $instagramId
-        platform: $platform
-        photos: $photos
-      ) {
+      id
+      title
+      description
+      rating
+    }
+  }
+`;
+export class EditReviewComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<EditReviewMutation, EditReviewVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<EditReviewMutation, EditReviewVariables>
+        mutation={EditReviewDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type EditReviewProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<EditReviewMutation, EditReviewVariables>
+> &
+  TChildProps;
+export type EditReviewMutationFn = ReactApollo.MutationFn<
+  EditReviewMutation,
+  EditReviewVariables
+>;
+export function EditReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        EditReviewMutation,
+        EditReviewVariables,
+        EditReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    EditReviewMutation,
+    EditReviewVariables,
+    EditReviewProps<TChildProps>
+  >(EditReviewDocument, operationOptions);
+}
+export const EditCommentDocument = gql`
+  mutation EditComment($id: ID!, $text: String!) {
+    editComment(id: $id, text: $text) {
+      id
+      text
+      datetime
+    }
+  }
+`;
+export class EditCommentComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<EditCommentMutation, EditCommentVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<EditCommentMutation, EditCommentVariables>
+        mutation={EditCommentDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type EditCommentProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<EditCommentMutation, EditCommentVariables>
+> &
+  TChildProps;
+export type EditCommentMutationFn = ReactApollo.MutationFn<
+  EditCommentMutation,
+  EditCommentVariables
+>;
+export function EditCommentHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        EditCommentMutation,
+        EditCommentVariables,
+        EditCommentProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    EditCommentMutation,
+    EditCommentVariables,
+    EditCommentProps<TChildProps>
+  >(EditCommentDocument, operationOptions);
+}
+export const DeleteUserDocument = gql`
+  mutation DeleteUser($id: ID!) {
+    deleteUser(id: $id)
+  }
+`;
+export class DeleteUserComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<DeleteUserMutation, DeleteUserVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeleteUserMutation, DeleteUserVariables>
+        mutation={DeleteUserDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeleteUserProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeleteUserMutation, DeleteUserVariables>
+> &
+  TChildProps;
+export type DeleteUserMutationFn = ReactApollo.MutationFn<
+  DeleteUserMutation,
+  DeleteUserVariables
+>;
+export function DeleteUserHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeleteUserMutation,
+        DeleteUserVariables,
+        DeleteUserProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeleteUserMutation,
+    DeleteUserVariables,
+    DeleteUserProps<TChildProps>
+  >(DeleteUserDocument, operationOptions);
+}
+export const DeleteReviewDocument = gql`
+  mutation DeleteReview($id: ID!) {
+    deleteReview(id: $id)
+  }
+`;
+export class DeleteReviewComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<DeleteReviewMutation, DeleteReviewVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeleteReviewMutation, DeleteReviewVariables>
+        mutation={DeleteReviewDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeleteReviewProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeleteReviewMutation, DeleteReviewVariables>
+> &
+  TChildProps;
+export type DeleteReviewMutationFn = ReactApollo.MutationFn<
+  DeleteReviewMutation,
+  DeleteReviewVariables
+>;
+export function DeleteReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeleteReviewMutation,
+        DeleteReviewVariables,
+        DeleteReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeleteReviewMutation,
+    DeleteReviewVariables,
+    DeleteReviewProps<TChildProps>
+  >(DeleteReviewDocument, operationOptions);
+}
+export const DeleteCommentDocument = gql`
+  mutation DeleteComment($id: ID!) {
+    deleteComment(id: $id)
+  }
+`;
+export class DeleteCommentComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<DeleteCommentMutation, DeleteCommentVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeleteCommentMutation, DeleteCommentVariables>
+        mutation={DeleteCommentDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeleteCommentProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeleteCommentMutation, DeleteCommentVariables>
+> &
+  TChildProps;
+export type DeleteCommentMutationFn = ReactApollo.MutationFn<
+  DeleteCommentMutation,
+  DeleteCommentVariables
+>;
+export function DeleteCommentHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeleteCommentMutation,
+        DeleteCommentVariables,
+        DeleteCommentProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeleteCommentMutation,
+    DeleteCommentVariables,
+    DeleteCommentProps<TChildProps>
+  >(DeleteCommentDocument, operationOptions);
+}
+export const DeletePhotoDocument = gql`
+  mutation DeletePhoto($id: ID!) {
+    deletePhoto(id: $id)
+  }
+`;
+export class DeletePhotoComponent extends React.Component<
+  Partial<ReactApollo.MutationProps<DeletePhotoMutation, DeletePhotoVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<DeletePhotoMutation, DeletePhotoVariables>
+        mutation={DeletePhotoDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type DeletePhotoProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<DeletePhotoMutation, DeletePhotoVariables>
+> &
+  TChildProps;
+export type DeletePhotoMutationFn = ReactApollo.MutationFn<
+  DeletePhotoMutation,
+  DeletePhotoVariables
+>;
+export function DeletePhotoHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        DeletePhotoMutation,
+        DeletePhotoVariables,
+        DeletePhotoProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    DeletePhotoMutation,
+    DeletePhotoVariables,
+    DeletePhotoProps<TChildProps>
+  >(DeletePhotoDocument, operationOptions);
+}
+export const PersonDocument = gql`
+  query Person($id: ID) {
+    person(id: $id) {
+      id
+      username
+      firstName
+      lastName
+      email
+      age
+      datetime
+      isActive
+      photos {
+        url
+      }
+      platform {
+        name
+      }
+    }
+  }
+`;
+export class PersonComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<PersonQuery, PersonVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<PersonQuery, PersonVariables>
+        query={PersonDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type PersonProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<PersonQuery, PersonVariables>
+> &
+  TChildProps;
+export function PersonHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        PersonQuery,
+        PersonVariables,
+        PersonProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    PersonQuery,
+    PersonVariables,
+    PersonProps<TChildProps>
+  >(PersonDocument, operationOptions);
+}
+export const ReviewDocument = gql`
+  query Review($id: ID!) {
+    review(id: $id) {
+      id
+      title
+      description
+      rating
+      datetime
+      author {
         id
         username
-        firstName
-        lastName
-        age
-        email
-        instagramId
-        platform {
-          id
-          name
-        }
-        photos {
-          url
-        }
       }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace EditReview {
-  export const Document = gql`
-    mutation EditReview(
-      $id: ID!
-      $title: String!
-      $description: String
-      $rating: Int
-      $userId: ID
-    ) {
-      editReview(
-        id: $id
-        title: $title
-        description: $description
-        rating: $rating
-        userId: $userId
-      ) {
-        id
-        title
-        description
-        rating
-      }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace EditComment {
-  export const Document = gql`
-    mutation EditComment($id: ID!, $text: String!) {
-      editComment(id: $id, text: $text) {
-        id
-        text
-        datetime
-      }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace DeleteUser {
-  export const Document = gql`
-    mutation DeleteUser($id: ID!) {
-      deleteUser(id: $id)
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace DeleteReview {
-  export const Document = gql`
-    mutation DeleteReview($id: ID!) {
-      deleteReview(id: $id)
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace DeleteComment {
-  export const Document = gql`
-    mutation DeleteComment($id: ID!) {
-      deleteComment(id: $id)
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace DeletePhoto {
-  export const Document = gql`
-    mutation DeletePhoto($id: ID!) {
-      deletePhoto(id: $id)
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.MutationProps<Mutation, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Mutation<Mutation, Variables>
-          mutation={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.MutateProps<Mutation, Variables>
-  > &
-    TChildProps;
-  export type MutationFn = ReactApollo.MutationFn<Mutation, Variables>;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Mutation,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Mutation, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
-}
-export namespace Person {
-  export const Document = gql`
-    query Person($id: ID) {
-      person(id: $id) {
+      person {
         id
         username
-        firstName
-        lastName
-        email
-        age
-        datetime
-        isActive
-        photos {
-          url
-        }
-        platform {
-          name
-        }
       }
     }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.QueryProps<Query, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Query<Query, Variables>
-          query={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.DataProps<Query, Variables>
-  > &
-    TChildProps;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Query,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class ReviewComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<ReviewQuery, ReviewVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<ReviewQuery, ReviewVariables>
+        query={ReviewDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
 }
-export namespace Review {
-  export const Document = gql`
-    query Review($id: ID!) {
-      review(id: $id) {
+export type ReviewProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<ReviewQuery, ReviewVariables>
+> &
+  TChildProps;
+export function ReviewHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        ReviewQuery,
+        ReviewVariables,
+        ReviewProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    ReviewQuery,
+    ReviewVariables,
+    ReviewProps<TChildProps>
+  >(ReviewDocument, operationOptions);
+}
+export const CommentDocument = gql`
+  query Comment($id: ID!) {
+    comment(id: $id) {
+      id
+      author {
         id
-        title
-        description
-        rating
-        datetime
-        author {
-          id
-          username
-        }
-        person {
-          id
-          username
-        }
+        username
+      }
+      text
+      datetime
+      review {
+        id
       }
     }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.QueryProps<Query, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Query<Query, Variables>
-          query={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.DataProps<Query, Variables>
-  > &
-    TChildProps;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Query,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+export class CommentComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<CommentQuery, CommentVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<CommentQuery, CommentVariables>
+        query={CommentDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
 }
-export namespace Comment {
-  export const Document = gql`
-    query Comment($id: ID!) {
-      comment(id: $id) {
-        id
-        author {
-          id
-          username
-        }
-        text
-        datetime
-        review {
-          id
-        }
-      }
-    }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.QueryProps<Query, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Query<Query, Variables>
-          query={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
-  }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.DataProps<Query, Variables>
-  > &
-    TChildProps;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Query,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
-    );
-  }
+export type CommentProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<CommentQuery, CommentVariables>
+> &
+  TChildProps;
+export function CommentHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        CommentQuery,
+        CommentVariables,
+        CommentProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    CommentQuery,
+    CommentVariables,
+    CommentProps<TChildProps>
+  >(CommentDocument, operationOptions);
 }

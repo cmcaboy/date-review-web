@@ -21,6 +21,27 @@ export const FIND_PERSON = gql`
   }
 `;
 
+export const FIND_USERS = gql`
+  query FindUsers($username: String) {
+    findUsers(username: $username) {
+      id
+      username
+      firstName
+      lastName
+      email
+      age
+      datetime
+      isActive
+      photos {
+        url
+      }
+      platform {
+        name
+      }
+    }
+  }
+`;
+
 export const FIND_REVIEW = gql`
   query Review($id: ID!) {
     review(id: $id) {
