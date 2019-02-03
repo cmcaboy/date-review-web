@@ -7,15 +7,12 @@ import { Content, Container, P, Input, Button, H1 } from "../components/common";
 import styled from "styled-components";
 import StarRatingComponent from "react-star-rating-component";
 import { FaUpload, FaStar } from "react-icons/fa";
+import Router from "next/router";
 import Select from "react-select";
 import { PRIMARY_COLOR } from "../variables";
+
 import FormSegment from "../components/common/FormSegment";
-import { Mutation } from "react-apollo";
-import { NEW_USER_AND_REVIEW } from "../apollo/mutations";
-import {
-  NewUserAndReview,
-  NewUserAndReviewComponent
-} from "generated/apolloComponents";
+import { NewUserAndReviewComponent } from "../generated/apolloComponents";
 
 // TODO: control image size
 // TODO: Compress images?
@@ -31,8 +28,8 @@ const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/mcaboy-digital/image/upload";
 
 const platforms = [
-  { value: 5, label: "Bumble" },
-  { value: 6, label: "Tinder" }
+  { value: "5", label: "Bumble" },
+  { value: "6", label: "Tinder" }
 ];
 
 interface NewProps {}
@@ -42,17 +39,20 @@ interface NewState {
   firstName: string;
   lastName: string;
   instagramId: string;
-  age: number | null;
+  age: number | undefined;
   email: string;
   photo: string;
-  rating: number | null;
+  rating: number | undefined;
   description: string;
   title: string;
   loading: boolean;
   uploadedFileCloudinaryUrl: string;
   uploadedFile: any;
   error: string;
-  platform: string | null;
+  platform: {
+    value: string | undefined;
+    label: string | undefined;
+  };
 }
 
 class New extends React.Component<NewProps, NewState> {
@@ -64,16 +64,16 @@ class New extends React.Component<NewProps, NewState> {
       lastName: "",
       instagramId: "",
       email: "",
-      age: null,
-      rating: null,
+      age: undefined,
+      rating: undefined,
       description: "",
       title: "",
       loading: false,
       uploadedFileCloudinaryUrl: "",
-      uploadedFile: null,
+      uploadedFile: "",
       photo: "",
       error: "",
-      platform: ""
+      platform: { value: undefined, label: undefined }
     };
   }
   changeUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -163,7 +163,6 @@ class New extends React.Component<NewProps, NewState> {
       uploadedFileCloudinaryUrl,
       uploadedFile
     } = this.state;
-    console.log("platform: ", platform);
     const disabled = !username || !rating;
     return (
       <Container>
@@ -174,7 +173,7 @@ class New extends React.Component<NewProps, NewState> {
               <Form
                 onSubmit={async e => {
                   e.preventDefault();
-                  newUserAndReview({
+                  await newUserAndReview({
                     variables: {
                       age,
                       authorId: "20",
@@ -183,7 +182,7 @@ class New extends React.Component<NewProps, NewState> {
                       firstName,
                       instagramId,
                       lastName,
-                      platform,
+                      platform: platform.value,
                       rating,
                       title,
                       username
@@ -192,7 +191,7 @@ class New extends React.Component<NewProps, NewState> {
                       console.log("result: ", result);
                     }
                   });
-                  // console.log("response: ", response);
+                  Router.push("/");
                 }}
               >
                 <FormSegment title="Username">

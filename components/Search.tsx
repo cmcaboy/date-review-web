@@ -1,64 +1,54 @@
 // * This is the about page
 
 import * as React from "react";
-import styled from "styled-components";
-import { Input, Button } from "../components/common";
-import { FaSearch } from "react-icons/fa";
-import { PersonComponent } from "generated/apolloComponents";
+import { Input } from "../components/common";
+import { FindUsersComponent } from "../generated/apolloComponents";
+import { UserCard } from "./UserCard";
+import { UserList } from "./UserList";
+import Debounce from "./common/Debounce";
+
+// TODO: Search for substring rather than full string
 
 interface SearchProps {}
 
 interface SearchState {
-  name: string;
+  username: string;
 }
 
 class Search extends React.Component<SearchProps, SearchState> {
   constructor(props: SearchProps) {
     super(props);
     this.state = {
-      name: ""
+      username: ""
     };
   }
   onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ name: e.target.value });
+    this.setState({ username: e.target.value });
   render(): JSX.Element {
-    const { name } = this.state;
+    const { username } = this.state;
     return (
-      <Div>
+      <>
         <Input
           placeholder="Username or name"
           onChange={this.onChange}
-          value={name}
+          value={username}
         />
-        <SearchButton>
-          <FaSearch size={24} />
-        </SearchButton>
-        <FindUsersComponent variables={{ name }}>
-          {({ data, error, loading }) => {
-            if (!data || loading || error) return;
-            return <UserCard data={data} />;
-          }}
-        </FindUsersComponent>
-      </Div>
+        <UserList>
+          <Debounce>
+            <FindUsersComponent variables={{ username }}>
+              {({ data, error, loading }) => {
+                if (loading || error) return null;
+                return data.findUsers.map(user => {
+                  console.log("user: ", user);
+                  return <UserCard key={user.id} data={user} />;
+                });
+              }}
+            </FindUsersComponent>
+          </Debounce>
+        </UserList>
+      </>
     );
   }
 }
-
-const SearchButton = styled(Button)`
-  min-height: 0;
-  min-width: 0;
-  height: 45px;
-  width: 70px;
-  font-size: 16px;
-  margin: 2px 0px;
-`;
-
-const Div = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default Search;

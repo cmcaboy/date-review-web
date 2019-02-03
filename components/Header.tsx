@@ -4,7 +4,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Content, HeaderLink, HeaderTitle } from "./common";
 import Link from "next/link";
-import { Button, P } from "./common/Button";
+import { Button } from "./common/Button";
 
 interface HeaderProps {}
 

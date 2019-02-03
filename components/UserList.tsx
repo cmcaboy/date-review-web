@@ -1,7 +1,7 @@
 // * This is the about page
 
 import * as React from "react";
-import { P } from "./common";
+import styled from "styled-components";
 
 interface UserListProps {}
 
@@ -9,8 +9,15 @@ interface UserListState {}
 
 class UserList extends React.Component<UserListProps, UserListState> {
   public render(): JSX.Element {
-    return <P>UserList</P>;
+    return <Div>{this.props.children}</Div>;
   }
 }
 
-export default UserList;
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+export { UserList };

@@ -9,7 +9,6 @@ import initApollo from "./initApollo";
 import { isBrowser } from "./isBrowser";
 
 function parseCookies(req?: any, options = {}) {
-  console.log("parseCookies req: ", req);
   return cookie.parse(
     req ? req.headers.cookie || "" : document.cookie,
     options

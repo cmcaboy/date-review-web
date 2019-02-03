@@ -52,19 +52,18 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
+  const httpLink = new HttpLink({
+    uri: `${process.env.GRAPHQL_SERVER_URL}`
+    // uri: `http://localhost:4000/graphql`,
+    // credentials: "include" // * from ben awad
+    // fetchOptions: {
+    //   mode: "no-cors"
+    // }
+  });
+
   // We put both the state link and http link in httpLink to let the application
   // query the application state when applicable
-  const httpLink = ApolloLink.from([
-    stateLink,
-    new HttpLink({
-      uri: `${process.env.GRAPHQL_SERVER_URL}`,
-      // uri: `http://localhost:4000/graphql`,
-      // credentials: "include" // * from ben awad
-      fetchOptions: {
-        mode: "no-cors"
-      }
-    })
-  ]);
+  const combinedLink = ApolloLink.from([stateLink, httpLink]);
 
   // TODO: Setup subscriptions with web sockets
   // Websockets are used for subscriptions.
@@ -86,8 +85,8 @@ function create(initialState: any, { getToken }: Options) {
       );
     },
     // wsLink,
-    httpLink,
-    httpLink
+    combinedLink,
+    combinedLink
   );
   // const link = httpLink;
 

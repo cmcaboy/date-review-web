@@ -374,6 +374,52 @@ export type PersonPlatform = {
   name: Maybe<string>;
 };
 
+export type FindUsersVariables = {
+  username?: Maybe<string>;
+};
+
+export type FindUsersQuery = {
+  __typename?: "Query";
+
+  findUsers: Maybe<FindUsersFindUsers[]>;
+};
+
+export type FindUsersFindUsers = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+
+  firstName: Maybe<string>;
+
+  lastName: Maybe<string>;
+
+  email: Maybe<string>;
+
+  age: Maybe<number>;
+
+  datetime: Maybe<number>;
+
+  isActive: Maybe<boolean>;
+
+  photos: Maybe<FindUsersPhotos[]>;
+
+  platform: Maybe<FindUsersPlatform>;
+};
+
+export type FindUsersPhotos = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
+};
+
+export type FindUsersPlatform = {
+  __typename?: "Platform";
+
+  name: Maybe<string>;
+};
+
 export type ReviewVariables = {
   id: string;
 };
@@ -1183,6 +1229,59 @@ export function PersonHOC<TProps, TChildProps = any>(
     PersonVariables,
     PersonProps<TChildProps>
   >(PersonDocument, operationOptions);
+}
+export const FindUsersDocument = gql`
+  query FindUsers($username: String) {
+    findUsers(username: $username) {
+      id
+      username
+      firstName
+      lastName
+      email
+      age
+      datetime
+      isActive
+      photos {
+        url
+      }
+      platform {
+        name
+      }
+    }
+  }
+`;
+export class FindUsersComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindUsersQuery, FindUsersVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindUsersQuery, FindUsersVariables>
+        query={FindUsersDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindUsersProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindUsersQuery, FindUsersVariables>
+> &
+  TChildProps;
+export function FindUsersHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindUsersQuery,
+        FindUsersVariables,
+        FindUsersProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindUsersQuery,
+    FindUsersVariables,
+    FindUsersProps<TChildProps>
+  >(FindUsersDocument, operationOptions);
 }
 export const ReviewDocument = gql`
   query Review($id: ID!) {

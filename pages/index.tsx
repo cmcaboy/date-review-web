@@ -1,8 +1,7 @@
 import React from "react";
-import { P, H3, Container, Content } from "../components/common";
+import { H3, Container, Content } from "../components/common";
 import styled from "styled-components";
 import Search from "../components/Search";
-import UserList from "../components/UserList";
 // * This is the home page
 
 export default class extends React.Component {
@@ -12,7 +11,6 @@ export default class extends React.Component {
         <ThisContent>
           <Title>Search for someone you have dated</Title>
           <Search />
-          <UserList />
         </ThisContent>
       </Container>
     );
