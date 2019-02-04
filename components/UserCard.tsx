@@ -21,7 +21,7 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
 }
 
 const Div = styled.div`
-  width: 200px;
+  width: 100%;
   height: 80px;
   border-radius: 2px;
   border-width: 1;

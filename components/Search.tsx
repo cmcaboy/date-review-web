@@ -6,6 +6,7 @@ import { FindUsersComponent } from "../generated/apolloComponents";
 import { UserCard } from "./UserCard";
 import { UserList } from "./UserList";
 import Debounce from "./common/Debounce";
+import styled from "styled-components";
 
 // TODO: Search for substring rather than full string
 
@@ -27,8 +28,8 @@ class Search extends React.Component<SearchProps, SearchState> {
   render(): JSX.Element {
     const { username } = this.state;
     return (
-      <>
-        <Input
+      <Div>
+        <SearchInput
           placeholder="Username or name"
           onChange={this.onChange}
           value={username}
@@ -38,17 +39,29 @@ class Search extends React.Component<SearchProps, SearchState> {
             <FindUsersComponent variables={{ username }}>
               {({ data, error, loading }) => {
                 if (loading || error) return null;
-                return data.findUsers.map(user => {
-                  console.log("user: ", user);
-                  return <UserCard key={user.id} data={user} />;
-                });
+                return data.findUsers.map(user => (
+                  <UserCard key={user.id} data={user} />
+                ));
               }}
             </FindUsersComponent>
           </Debounce>
         </UserList>
-      </>
+      </Div>
     );
   }
 }
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 500px;
+  height: auto;
+`;
+
+const SearchInput = styled(Input)`
+  width: 100%;
+  padding: 0;
+`;
 
 export default Search;

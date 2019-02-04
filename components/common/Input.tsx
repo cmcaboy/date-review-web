@@ -2,7 +2,11 @@
 
 import styled from "styled-components";
 
-export const Input = styled.input`
+interface Props {
+  error?: boolean;
+}
+
+export const Input = styled.input<Props>`
   width: 400px;
   height: 40px;
   border-radius: 5px;
@@ -11,4 +15,7 @@ export const Input = styled.input`
   @media (max-width: 500px) {
     width: 300px;
   }
+  outline: ${props => (props.error ? "none" : "")};
+  border-color: ${props => (props.error ? "red" : "")};
+  box-shadow: ${props => (props.error ? "0 0 5px red" : "")};
 `;
