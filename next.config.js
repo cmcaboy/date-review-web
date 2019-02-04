@@ -1,32 +1,35 @@
 // next.config.js
 // const withTypescript = require("@zeit/next-typescript");
+// const webpack = require("webpack");
+// const { parsed: localEnv } = require("dotenv").config();
 
 // module.exports = withTypescript({
 //   webpack(config) {
 //     config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-
 //     return config;
 //   }
 // });
+
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
-// const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
-const { PHASE_PRODUCTION_SERVER } =
-  process.env.NODE_ENV === "development"
-    ? {}
-    : !process.env.NOW_REGION
-    ? require("next/constants")
-    : require("next-server/constants");
+const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
+// const { PHASE_PRODUCTION_SERVER } =
+//   process.env.NODE_ENV === "development"
+//     ? {}
+//     : !process.env.NOW_REGION
+//     ? require("next/constants")
+//     : require("next-server/constants");
 
 module.exports = (phase, { defaultConfig }) => {
+  console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
+  console.log("phase: ", phase);
   if (phase === PHASE_PRODUCTION_SERVER) {
-    return {
-      /* production only config */
-    };
+    return { target: "serverless" };
   }
   const withTypescript = require("@zeit/next-typescript");
   return withTypescript({
+    target: "serverless",
     webpack(config, options) {
       // Do not run type checking twice:
       if (options.isServer)
@@ -35,14 +38,3 @@ module.exports = (phase, { defaultConfig }) => {
     }
   });
 };
-
-// module.exports = {
-//   webpack: config => {
-//     // Fixes npm packages that depend on `fs` module
-//     config.node = {
-//       fs: "empty"
-//     };
-
-//     return config;
-//   }
-// };
