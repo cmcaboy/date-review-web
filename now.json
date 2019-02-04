@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
+  "regions": ["iad1"],
+  "public": true,
+  "github": {
+    "enabled": true,
+    "autoJobCancelation": false
+  },
+  "env": {
+    "GRAPHQL_SERVER_URL": "http://localhost:4000/graphql",
+    "CLOUDINARY_UPLOAD_PRESET": "image-upload",
+    "CLOUDINARY_UPLOAD_URL": "https://api.cloudinary.com/v1_1/mcaboy-digital/image/upload"
+  }
+}
