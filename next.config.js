@@ -14,12 +14,6 @@ const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
-// const { PHASE_PRODUCTION_SERVER } =
-//   process.env.NODE_ENV === "development"
-//     ? {}
-//     : !process.env.NOW_REGION
-//     ? require("next/constants")
-//     : require("next-server/constants");
 
 module.exports = (phase, { defaultConfig }) => {
   console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
