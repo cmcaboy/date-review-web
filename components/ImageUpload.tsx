@@ -2,7 +2,7 @@ import * as React from "react";
 import Dropzone from "react-dropzone";
 import { FaUpload } from "react-icons/fa";
 import request from "superagent";
-import { Input, P } from "./common";
+import { Input, P, Img } from "./common";
 import styled from "styled-components";
 
 // TODO: control image size
@@ -103,12 +103,6 @@ const DropArea = styled.div`
   border-style: dashed;
   border-radius: 2px;
   cursor: pointer;
-`;
-
-const Img = styled.img`
-  width: 100px;
-  height: 100px;
-  padding: 5px;
 `;
 
 export { ImageUpload };

@@ -14,6 +14,7 @@ const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
+console.log("next.config.js");
 
 module.exports = (phase, { defaultConfig }) => {
   console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
@@ -26,8 +27,9 @@ module.exports = (phase, { defaultConfig }) => {
     target: "serverless",
     webpack(config, options) {
       // Do not run type checking twice:
-      if (options.isServer)
-        config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+      console.log("options: ", options);
+      console.log("config: ", config);
+      config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
       return config;
     }
   });

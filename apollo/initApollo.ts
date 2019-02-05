@@ -52,6 +52,8 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
+  console.log("GRAPHQL_SERVER_URL: ", process.env.GRAPHQL_SERVER_URL);
+
   const httpLink = new HttpLink({
     uri: `${process.env.GRAPHQL_SERVER_URL}`
     // uri: `http://localhost:4000/graphql`,
