@@ -12,10 +12,8 @@ interface UserCardState {}
 
 class UserCard extends React.Component<UserCardProps, UserCardState> {
   public render(): JSX.Element {
-    console.log("props UserCard: ", this.props);
     const { username, age, platform, photos, datetime } = this.props.data;
     const photo = photos.length ? photos[0].url : PLACEHOLDER_PHOTO;
-    console.log("photo: ", photo);
     return (
       <Div>
         <LeftDiv>
@@ -36,7 +34,7 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
 
 const Div = styled.div`
   width: 100%;
-  height: 80px;
+  height: auto;
   border-radius: 2px;
   border-width: 1;
   border-style: solid;
