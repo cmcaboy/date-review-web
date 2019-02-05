@@ -53,8 +53,7 @@ function create(initialState: any, { getToken }: Options) {
   });
 
   const httpLink = new HttpLink({
-    // uri: `${process.env.GRAPHQL_SERVER_URL}`
-    uri: `https://date-review-server.herokuapp.com/graphql`
+    uri: `${process.env.GRAPHQL_SERVER_URL}`
     // uri: `http://localhost:4000/graphql`,
     // credentials: "include" // * from ben awad
     // fetchOptions: {
