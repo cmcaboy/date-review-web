@@ -22,7 +22,8 @@ const Div = styled.div`
   border-color: rgba(0, 0, 0, 0.15);
   border-radius: 2px;
   box-shadow: 0 4px 6px 2px rgba(0, 0, 0, 0.1);
-  padding: inherit;
+  padding: 0 10px;
+  width: 100%;
 `;
 
 export { UserList };
