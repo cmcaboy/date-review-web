@@ -14,21 +14,22 @@ const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
-console.log("next.config.js");
+// console.log("next.config.js");
 
 module.exports = (phase, { defaultConfig }) => {
-  console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
-  console.log("phase: ", phase);
+  // console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
+  // console.log("phase: ", phase);
   if (phase === PHASE_PRODUCTION_SERVER) {
     return { target: "serverless" };
   }
   const withTypescript = require("@zeit/next-typescript");
+
   return withTypescript({
     target: "serverless",
     webpack(config, options) {
       // Do not run type checking twice:
-      console.log("options: ", options);
-      console.log("config: ", config);
+      // console.log("options: ", options);
+      // console.log("config: ", config);
       config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
       return config;
     }

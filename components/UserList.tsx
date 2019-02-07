@@ -18,6 +18,11 @@ const Div = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border: 1px solid #ccc;
+  border-color: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  box-shadow: 0 4px 6px 2px rgba(0, 0, 0, 0.1);
+  padding: inherit;
 `;
 
 export { UserList };

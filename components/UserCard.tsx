@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { P, Img } from "../components/common";
+import { P, Avatar, H5 } from "../components/common";
 import { FindUsersFindUsers } from "generated/apolloComponents";
 import { PLACEHOLDER_PHOTO } from "../variables";
 
@@ -17,13 +17,14 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
     return (
       <Div>
         <LeftDiv>
-          <Img src={photo} />
-        </LeftDiv>
-        <RightDiv>
-          <P>
+          <Avatar src={photo} />
+          <H5>
             {username}
             {!!age && `, ${age}`}
-          </P>
+          </H5>
+        </LeftDiv>
+        <RightDiv>
+          <P />
           {!!platform && <P>{platform.name}</P>}
           {!!datetime && <P>{datetime}</P>}
         </RightDiv>
@@ -35,17 +36,16 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
 const Div = styled.div`
   width: 100%;
   height: auto;
-  border-radius: 2px;
-  border-width: 1;
-  border-style: solid;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const LeftDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const RightDiv = styled(LeftDiv)``;

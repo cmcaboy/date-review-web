@@ -24,7 +24,7 @@ class Container extends React.Component<ContainerProps, ContainerState> {
 // * This is our container div. Here, we import fonts that we need throughout
 // * our app.
 const Div = styled.div`
-  @import url("https://fonts.googleapis.com/css?family=Rubik");
+  @import url("https://fonus.googleapis.com/css?family=Rubik");
   padding: 0 0;
 `;
 

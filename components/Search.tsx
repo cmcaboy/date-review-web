@@ -57,11 +57,11 @@ const Div = styled.div`
   align-items: stretch;
   width: 500px;
   height: auto;
+  padding: 0 10px;
 `;
 
 const SearchInput = styled(Input)`
   width: 100%;
-  padding: 0;
 `;
 
 export default Search;

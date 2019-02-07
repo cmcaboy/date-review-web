@@ -11,3 +11,4 @@ export * from "./Loader";
 export * from "./Modal";
 export * from "./P";
 export * from "./Img";
+export * from "./Avatar";
