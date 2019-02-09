@@ -8,6 +8,15 @@ interface UserProps {}
 interface UserState {}
 
 class User extends React.Component<UserProps, UserState> {
+  static async getInitialProps({ query }) {
+    console.log("initialProps query: ", query);
+    return query;
+  }
+  constructor(props: any) {
+    super(props);
+
+    console.log("props: ", props);
+  }
   public render(): JSX.Element {
     return (
       <Container>
