@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { P, Avatar, H5 } from "../components/common";
 import { FindUsersFindUsers } from "generated/apolloComponents";
 import { PLACEHOLDER_PHOTO } from "../variables";
+import Link from "next/link";
 
 interface UserCardProps {
   data: FindUsersFindUsers;
@@ -12,23 +13,25 @@ interface UserCardState {}
 
 class UserCard extends React.Component<UserCardProps, UserCardState> {
   public render(): JSX.Element {
-    const { username, age, platform, photos, datetime } = this.props.data;
+    const { username, age, platform, photos, datetime, id } = this.props.data;
     const photo = photos.length ? photos[0].url : PLACEHOLDER_PHOTO;
     return (
-      <Div>
-        <LeftDiv>
-          <Avatar src={photo} />
-          <H5>
-            {username}
-            {!!age && `, ${age}`}
-          </H5>
-        </LeftDiv>
-        <RightDiv>
-          <P />
-          {!!platform && <P>{platform.name}</P>}
-          {!!datetime && <P>{datetime}</P>}
-        </RightDiv>
-      </Div>
+      <Link href={`/user?id=${id}`} as={`/user/${id}`}>
+        <Div>
+          <LeftDiv>
+            <Avatar src={photo} />
+            <H5>
+              {username}
+              {!!age && `, ${age}`}
+            </H5>
+          </LeftDiv>
+          <RightDiv>
+            <P />
+            {!!platform && <P>{platform.name}</P>}
+            {!!datetime && <P>{datetime}</P>}
+          </RightDiv>
+        </Div>
+      </Link>
     );
   }
 }
