@@ -34,18 +34,20 @@ class Search extends React.Component<SearchProps, SearchState> {
           onChange={this.onChange}
           value={username}
         />
-        <UserList>
-          <Debounce>
-            <FindUsersComponent variables={{ username }}>
-              {({ data, error, loading }) => {
-                if (loading || error) return null;
-                return data.findUsers.map(user => (
-                  <UserCard key={user.id} data={user} />
-                ));
-              }}
-            </FindUsersComponent>
-          </Debounce>
-        </UserList>
+        {!!username && (
+          <UserList>
+            <Debounce>
+              <FindUsersComponent variables={{ username }}>
+                {({ data, error, loading }) => {
+                  if (loading || error) return null;
+                  return data.findUsers.map(user => (
+                    <UserCard key={user.id} data={user} />
+                  ));
+                }}
+              </FindUsersComponent>
+            </Debounce>
+          </UserList>
+        )}
       </Div>
     );
   }
