@@ -9,7 +9,7 @@ export const FIND_PERSON = gql`
       lastName
       email
       age
-      datetime
+      createDate
       isActive
       photos {
         url
@@ -17,6 +17,8 @@ export const FIND_PERSON = gql`
       platform {
         name
       }
+      numRatings
+      averageRating
     }
   }
 `;
@@ -30,7 +32,7 @@ export const FIND_USERS = gql`
       lastName
       email
       age
-      datetime
+      createDate
       isActive
       photos {
         url
@@ -49,10 +51,36 @@ export const FIND_REVIEW = gql`
       title
       description
       rating
-      datetime
+      updateDateTime
       author {
         id
         username
+        profilePic {
+          url
+        }
+      }
+      person {
+        id
+        username
+      }
+    }
+  }
+`;
+
+export const FIND_REVIEWS = gql`
+  query FindReviews($userId: ID!) {
+    findReviews(userId: $userId) {
+      id
+      title
+      description
+      rating
+      updateDateTime
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
       }
       person {
         id
@@ -69,9 +97,32 @@ export const FIND_COMMENT = gql`
       author {
         id
         username
+        profilePic {
+          url
+        }
       }
       text
-      datetime
+      updateDateTime
+      review {
+        id
+      }
+    }
+  }
+`;
+
+export const FIND_COMMENTS = gql`
+  query FindComments($reviewId: ID!) {
+    findComments(reviewId: $reviewId) {
+      id
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
+      text
+      updateDateTime
       review {
         id
       }

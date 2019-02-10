@@ -1,7 +1,7 @@
 {
   "name": "date-review-web",
   "scripts": {
-    "dev": "ts-node-dev server/index.ts --project tsconfig.server.json",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "now-build": "next build",
@@ -23,6 +23,7 @@
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "moment": "^2.24.0",
     "next": "^8.0.0-canary.18",
     "next-routes": "^1.4.2",
     "node-sass": "^4.11.0",
@@ -43,6 +44,8 @@
     "@types/cookie": "^0.3.2",
     "@types/next": "^7.0.6",
     "@types/react": "^16.7.20",
+    "@types/react-select": "^2.0.11",
+    "@types/react-star-rating-component": "^1.4.0",
     "@types/styled-components": "^4.1.8",
     "@types/superagent": "^3.8.6",
     "@types/yup": "^0.26.7",

@@ -121,7 +121,7 @@ export type NewUserAndReviewNewUserAndReview = {
 
   rating: Maybe<number>;
 
-  datetime: Maybe<number>;
+  updateDateTime: Maybe<string>;
 
   author: Maybe<NewUserAndReviewAuthor>;
 
@@ -163,7 +163,7 @@ export type NewCommentNewComment = {
 
   text: Maybe<string>;
 
-  datetime: Maybe<number>;
+  updateDateTime: Maybe<string>;
 };
 
 export type NewPlatformVariables = {
@@ -285,7 +285,7 @@ export type EditCommentEditComment = {
 
   text: Maybe<string>;
 
-  datetime: Maybe<number>;
+  updateDateTime: Maybe<string>;
 };
 
 export type DeleteUserVariables = {
@@ -353,13 +353,17 @@ export type PersonPerson = {
 
   age: Maybe<number>;
 
-  datetime: Maybe<number>;
+  createDate: Maybe<string>;
 
   isActive: Maybe<boolean>;
 
   photos: Maybe<PersonPhotos[]>;
 
   platform: Maybe<PersonPlatform>;
+
+  numRatings: Maybe<number>;
+
+  averageRating: Maybe<number>;
 };
 
 export type PersonPhotos = {
@@ -399,7 +403,7 @@ export type FindUsersFindUsers = {
 
   age: Maybe<number>;
 
-  datetime: Maybe<number>;
+  createDate: Maybe<string>;
 
   isActive: Maybe<boolean>;
 
@@ -441,7 +445,7 @@ export type ReviewReview = {
 
   rating: Maybe<number>;
 
-  datetime: Maybe<number>;
+  updateDateTime: Maybe<string>;
 
   author: Maybe<ReviewAuthor>;
 
@@ -454,9 +458,69 @@ export type ReviewAuthor = {
   id: Maybe<string>;
 
   username: Maybe<string>;
+
+  profilePic: Maybe<ReviewProfilePic>;
+};
+
+export type ReviewProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
 };
 
 export type ReviewPerson = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+};
+
+export type FindReviewsVariables = {
+  userId: string;
+};
+
+export type FindReviewsQuery = {
+  __typename?: "Query";
+
+  findReviews: Maybe<FindReviewsFindReviews[]>;
+};
+
+export type FindReviewsFindReviews = {
+  __typename?: "Review";
+
+  id: Maybe<string>;
+
+  title: Maybe<string>;
+
+  description: Maybe<string>;
+
+  rating: Maybe<number>;
+
+  updateDateTime: Maybe<string>;
+
+  author: Maybe<FindReviewsAuthor>;
+
+  person: Maybe<FindReviewsPerson>;
+};
+
+export type FindReviewsAuthor = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+
+  profilePic: Maybe<FindReviewsProfilePic>;
+};
+
+export type FindReviewsProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
+};
+
+export type FindReviewsPerson = {
   __typename?: "Person";
 
   id: Maybe<string>;
@@ -483,7 +547,7 @@ export type CommentComment = {
 
   text: Maybe<string>;
 
-  datetime: Maybe<number>;
+  updateDateTime: Maybe<string>;
 
   review: Maybe<CommentReview>;
 };
@@ -494,9 +558,63 @@ export type CommentAuthor = {
   id: Maybe<string>;
 
   username: Maybe<string>;
+
+  profilePic: Maybe<CommentProfilePic>;
+};
+
+export type CommentProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
 };
 
 export type CommentReview = {
+  __typename?: "Review";
+
+  id: Maybe<string>;
+};
+
+export type FindCommentsVariables = {
+  reviewId: string;
+};
+
+export type FindCommentsQuery = {
+  __typename?: "Query";
+
+  findComments: Maybe<FindCommentsFindComments[]>;
+};
+
+export type FindCommentsFindComments = {
+  __typename?: "Comment";
+
+  id: Maybe<string>;
+
+  author: Maybe<FindCommentsAuthor>;
+
+  text: Maybe<string>;
+
+  updateDateTime: Maybe<string>;
+
+  review: Maybe<FindCommentsReview>;
+};
+
+export type FindCommentsAuthor = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+
+  profilePic: Maybe<FindCommentsProfilePic>;
+};
+
+export type FindCommentsProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
+};
+
+export type FindCommentsReview = {
   __typename?: "Review";
 
   id: Maybe<string>;
@@ -677,7 +795,7 @@ export const NewUserAndReviewDocument = gql`
       title
       description
       rating
-      datetime
+      updateDateTime
       author {
         id
         username
@@ -736,7 +854,7 @@ export const NewCommentDocument = gql`
     newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
       id
       text
-      datetime
+      updateDateTime
     }
   }
 `;
@@ -964,7 +1082,7 @@ export const EditCommentDocument = gql`
     editComment(id: $id, text: $text) {
       id
       text
-      datetime
+      updateDateTime
     }
   }
 `;
@@ -1186,7 +1304,7 @@ export const PersonDocument = gql`
       lastName
       email
       age
-      datetime
+      createDate
       isActive
       photos {
         url
@@ -1194,6 +1312,8 @@ export const PersonDocument = gql`
       platform {
         name
       }
+      numRatings
+      averageRating
     }
   }
 `;
@@ -1239,7 +1359,7 @@ export const FindUsersDocument = gql`
       lastName
       email
       age
-      datetime
+      createDate
       isActive
       photos {
         url
@@ -1290,10 +1410,13 @@ export const ReviewDocument = gql`
       title
       description
       rating
-      datetime
+      updateDateTime
       author {
         id
         username
+        profilePic {
+          url
+        }
       }
       person {
         id
@@ -1335,6 +1458,61 @@ export function ReviewHOC<TProps, TChildProps = any>(
     ReviewProps<TChildProps>
   >(ReviewDocument, operationOptions);
 }
+export const FindReviewsDocument = gql`
+  query FindReviews($userId: ID!) {
+    findReviews(userId: $userId) {
+      id
+      title
+      description
+      rating
+      updateDateTime
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
+      person {
+        id
+        username
+      }
+    }
+  }
+`;
+export class FindReviewsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindReviewsQuery, FindReviewsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindReviewsQuery, FindReviewsVariables>
+        query={FindReviewsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindReviewsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindReviewsQuery, FindReviewsVariables>
+> &
+  TChildProps;
+export function FindReviewsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindReviewsQuery,
+        FindReviewsVariables,
+        FindReviewsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindReviewsQuery,
+    FindReviewsVariables,
+    FindReviewsProps<TChildProps>
+  >(FindReviewsDocument, operationOptions);
+}
 export const CommentDocument = gql`
   query Comment($id: ID!) {
     comment(id: $id) {
@@ -1342,9 +1520,12 @@ export const CommentDocument = gql`
       author {
         id
         username
+        profilePic {
+          url
+        }
       }
       text
-      datetime
+      updateDateTime
       review {
         id
       }
@@ -1383,4 +1564,56 @@ export function CommentHOC<TProps, TChildProps = any>(
     CommentVariables,
     CommentProps<TChildProps>
   >(CommentDocument, operationOptions);
+}
+export const FindCommentsDocument = gql`
+  query FindComments($reviewId: ID!) {
+    findComments(reviewId: $reviewId) {
+      id
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
+      text
+      updateDateTime
+      review {
+        id
+      }
+    }
+  }
+`;
+export class FindCommentsComponent extends React.Component<
+  Partial<ReactApollo.QueryProps<FindCommentsQuery, FindCommentsVariables>>
+> {
+  render() {
+    return (
+      <ReactApollo.Query<FindCommentsQuery, FindCommentsVariables>
+        query={FindCommentsDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type FindCommentsProps<TChildProps = any> = Partial<
+  ReactApollo.DataProps<FindCommentsQuery, FindCommentsVariables>
+> &
+  TChildProps;
+export function FindCommentsHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        FindCommentsQuery,
+        FindCommentsVariables,
+        FindCommentsProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    FindCommentsQuery,
+    FindCommentsVariables,
+    FindCommentsProps<TChildProps>
+  >(FindCommentsDocument, operationOptions);
 }

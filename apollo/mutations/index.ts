@@ -94,7 +94,7 @@ export const NEW_USER_AND_REVIEW = gql`
       title
       description
       rating
-      datetime
+      updateDateTime
       author {
         id
         username
@@ -112,7 +112,7 @@ export const NEW_COMMENT = gql`
     newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
       id
       text
-      datetime
+      updateDateTime
     }
   }
 `;
@@ -196,7 +196,7 @@ export const EDIT_COMMENT = gql`
     editComment(id: $id, text: $text) {
       id
       text
-      datetime
+      updateDateTime
     }
   }
 `;
