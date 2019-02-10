@@ -6,7 +6,7 @@ interface ButtonProps {
 }
 
 export const Button = styled.button`
-  ${(props: ButtonProps) => ``}; // HACK HERE!!!
+  ${(props: ButtonProps) => `${props}`}; // HACK HERE!!!
   min-height: 60px;
   min-width: 180px;
   border-radius: 2px;

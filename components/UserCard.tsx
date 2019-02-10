@@ -4,7 +4,6 @@ import { P, Avatar, H5 } from "../components/common";
 import { FindUsersFindUsers } from "generated/apolloComponents";
 import { PLACEHOLDER_PHOTO } from "../variables";
 import Link from "next/link";
-import { formatDate } from "../format";
 
 interface UserCardProps {
   data: FindUsersFindUsers;
@@ -14,7 +13,7 @@ interface UserCardState {}
 
 class UserCard extends React.Component<UserCardProps, UserCardState> {
   public render(): JSX.Element {
-    const { username, age, platform, photos, createDate, id } = this.props.data;
+    const { username, age, platform, photos, id } = this.props.data;
     const photo = photos.length ? photos[0].url : PLACEHOLDER_PHOTO;
     return (
       <Link href={`/user?id=${id}`} as={`/user/${id}`}>

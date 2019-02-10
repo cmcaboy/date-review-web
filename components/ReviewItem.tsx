@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FindReviewsFindReviews } from "../generated/apolloComponents";
 import styled from "styled-components";
-import { H5, P, HR, Img, Avatar } from "./common";
+import { H5, P, Avatar } from "./common";
 import { CommentList } from "./CommentList";
 import { formatDate } from "../format";
 
