@@ -2,7 +2,7 @@ import * as React from "react";
 import { FindReviewsComponent } from "../generated/apolloComponents";
 import ReviewItem from "./ReviewItem";
 import styled from "styled-components";
-import { H3 } from "./common";
+import { H3, HR } from "./common";
 
 interface ReviewListProps {
   id: string;
@@ -18,11 +18,12 @@ class ReviewList extends React.Component<ReviewListProps, ReviewListState> {
     return (
       <Div>
         <H3>Reviews</H3>
+        <HR />
         <FindReviewsComponent variables={{ userId: this.props.id }}>
           {({ data, loading, error }) => {
-            console.log("error: ", error);
-            console.log("loading: ", loading);
-            console.log("data: ", data);
+            // console.log("error: ", error);
+            // console.log("loading: ", loading);
+            // console.log("data: ", data);
             if (loading) {
               return null;
             } else if (error) {

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Input } from "../components/common";
 import { FindUsersComponent } from "../generated/apolloComponents";
-import { UserCard } from "./UserCard";
+import { SearchCard } from "./SearchCard";
 import { UserList } from "./UserList";
 import Debounce from "./common/Debounce";
 import styled from "styled-components";
@@ -41,7 +41,7 @@ class Search extends React.Component<SearchProps, SearchState> {
                 {({ data, error, loading }) => {
                   if (loading || error) return null;
                   return data.findUsers.map(user => (
-                    <UserCard key={user.id} data={user} />
+                    <SearchCard key={user.id} data={user} />
                   ));
                 }}
               </FindUsersComponent>

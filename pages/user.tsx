@@ -1,7 +1,7 @@
 // * This is the about page
 
 import * as React from "react";
-import { Content, Container, P, H3, Img } from "../components/common";
+import { Content, Container, P, H3, Img, HR } from "../components/common";
 import {
   // PersonQuery,
   // PersonVariables,
@@ -71,11 +71,13 @@ class User extends React.Component<UserProps, UserState> {
                     <ThisImg src={photo} />
                   </LeftColumn>
                   <RightColumn>
-                    <H3>
-                      {person.username}
-                      {!!person.age && `, ${person.age}`}
-                    </H3>
-                    <P>{person.platform.name}</P>
+                    <div>
+                      <H3>
+                        {person.username}
+                        {!!person.age && `, ${person.age}`}
+                      </H3>
+                      <P>{person.platform.name}</P>
+                    </div>
                     <Rating>
                       <StarRatingComponent
                         editing={false}
@@ -91,12 +93,13 @@ class User extends React.Component<UserProps, UserState> {
                       </RatingP>
                     </Rating>
                   </RightColumn>
-                  <ReviewList id={this.props.id} />
+                  <ReviewContainer>
+                    <ReviewList id={this.props.id} />
+                  </ReviewContainer>
                 </Div>
               );
             }}
           </PersonComponent>
-          <HR />
         </Content>
       </Container>
     );
@@ -104,9 +107,13 @@ class User extends React.Component<UserProps, UserState> {
 }
 
 const Div = styled.div`
+  margin-top: 20px;
   display: grid;
   grid-template-columns: 300px 500px;
-  grid-template-rows: 300px auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "profilePic information"
+    "blank reviews";
 `;
 
 const Rating = styled.div`
@@ -124,9 +131,17 @@ const RatingP = styled(P)`
   margin-left: 10px;
 `;
 
-const LeftColumn = styled.div``;
-const RightColumn = styled.div``;
-
-const HR = styled.hr``;
+const LeftColumn = styled.div`
+  grid-area: profilePic;
+`;
+const RightColumn = styled.div`
+  grid-area: information;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const ReviewContainer = styled.div`
+  grid-area: reviews;
+`;
 
 export default User;

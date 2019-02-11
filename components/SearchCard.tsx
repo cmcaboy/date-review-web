@@ -5,31 +5,33 @@ import { FindUsersFindUsers } from "generated/apolloComponents";
 import { PLACEHOLDER_PHOTO } from "../variables";
 import Link from "next/link";
 
-interface UserCardProps {
+interface SearchCardProps {
   data: FindUsersFindUsers;
 }
 
-interface UserCardState {}
+interface SearchCardState {}
 
-class UserCard extends React.Component<UserCardProps, UserCardState> {
+class SearchCard extends React.Component<SearchCardProps, SearchCardState> {
   public render(): JSX.Element {
     const { username, age, platform, photos, id } = this.props.data;
     const photo = photos.length ? photos[0].url : PLACEHOLDER_PHOTO;
     return (
-      <Div>
-        <LeftDiv>
-          <Avatar src={photo} />
-          <H5>
-            {username}
-            {!!age && `, ${age}`}
-          </H5>
-        </LeftDiv>
-        <RightDiv>
-          <P />
-          {!!platform && <P>{platform.name}</P>}
-          {/* {!!createDate && <P>{formatDate(createDate)}</P>} */}
-        </RightDiv>
-      </Div>
+      <Link href={`/user?id=${id}`} as={`/user/${id}`}>
+        <Div>
+          <LeftDiv>
+            <Avatar src={photo} />
+            <H5>
+              {username}
+              {!!age && `, ${age}`}
+            </H5>
+          </LeftDiv>
+          <RightDiv>
+            <P />
+            {!!platform && <P>{platform.name}</P>}
+            {/* {!!createDate && <P>{formatDate(createDate)}</P>} */}
+          </RightDiv>
+        </Div>
+      </Link>
     );
   }
 }
@@ -41,9 +43,6 @@ const Div = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
   &:hover {
     cursor: pointer;
   }
@@ -57,4 +56,4 @@ const LeftDiv = styled.div`
 
 const RightDiv = styled(LeftDiv)``;
 
-export { UserCard };
+export { SearchCard };
