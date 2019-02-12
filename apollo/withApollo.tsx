@@ -34,7 +34,7 @@ export default (App: any) => {
           getToken: () => parseCookies(req).qid
         }
       );
-      console.log("withApollo process.env: ", process.env);
+      console.log("withApollo process.env: ", process.env.GRAPHQL_SERVER_URL);
 
       ctx.ctx.apolloClient = apollo;
 

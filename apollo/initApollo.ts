@@ -13,6 +13,7 @@ import { resolvers, defaults, typeDefs } from "./localState";
 import { isBrowser } from "./isBrowser";
 import { ApolloClient } from "apollo-client";
 import { getMainDefinition } from "apollo-utilities";
+import getConfig from "next/config";
 
 // * This file is the setup file for Apollo client
 
@@ -52,11 +53,13 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
-  console.log("GRAPHQL_SERVER_URL: ", process.env.GRAPHQL_SERVER_URL);
+  const { publicRuntimeConfig } = getConfig();
+  console.log("runtimeConfig client: ", publicRuntimeConfig);
+  // console.log("GRAPHQL_SERVER_URL client: ", process.env.GRAPHQL_SERVER_URL);
   // console.log("process.env: ", process.env);
 
   const httpLink = new HttpLink({
-    uri: `${process.env.GRAPHQL_SERVER_URL}`
+    uri: publicRuntimeConfig.GRAPHQL_SERVER_URL
     // uri: `http://localhost:4000/graphql`,
     // credentials: "include" // * from ben awad
     // fetchOptions: {

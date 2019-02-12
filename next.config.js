@@ -13,8 +13,6 @@
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
-console.log(process.env);
-
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
 
 module.exports = (phase, { defaultConfig }) => {
@@ -30,12 +28,10 @@ module.exports = (phase, { defaultConfig }) => {
   if (phase === PHASE_PRODUCTION_SERVER) {
     return {
       target: "serverless",
-      webpack(config, options) {
-        // Do not run type checking twice:
-        // console.log("options: ", options);
-        // console.log("config: ", config);
-        config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-        return config;
+      publicRuntimeConfig: {
+        GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
+        CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
+        CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
       }
     };
   }
@@ -43,10 +39,15 @@ module.exports = (phase, { defaultConfig }) => {
 
   return withTypescript({
     target: "serverless",
+    publicRuntimeConfig: {
+      GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
+      CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
+      CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
+    },
     webpack(config, options) {
       // Do not run type checking twice:
-      // console.log("options: ", options);
-      // console.log("config: ", config);
+      console.log("options: ", options);
+      console.log("config: ", config);
       config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
       return config;
     }
