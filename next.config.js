@@ -29,7 +29,14 @@ module.exports = (phase, { defaultConfig }) => {
   // console.log("localEnv in next.config.js", localEnv);
   if (phase === PHASE_PRODUCTION_SERVER) {
     return {
-      target: "serverless"
+      target: "serverless",
+      webpack(config, options) {
+        // Do not run type checking twice:
+        // console.log("options: ", options);
+        // console.log("config: ", config);
+        config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+        return config;
+      }
     };
   }
   const withTypescript = require("@zeit/next-typescript");
