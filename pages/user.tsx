@@ -18,25 +18,14 @@ import { ReviewList } from "../components/ReviewList";
 // ? Should I fetch the user's information in getInitialProps or in render?
 
 interface UserProps {
-  // person: any;
   id: any;
 }
 
 interface UserState {}
 
 class User extends React.Component<UserProps, UserState> {
-  static async getInitialProps({ query: { id }, apolloClient }: MyContext) {
+  static async getInitialProps({ query: { id } }: MyContext) {
     return { id };
-    // const { data, errors, loading } = await apolloClient.query<
-    //   PersonQuery,
-    //   PersonVariables
-    // >({
-    //   query: FIND_PERSON,
-    //   variables: { id }
-    // });
-    // if (loading) return { person: null };
-    // if (errors) return { person: null };
-    // return data;
   }
   constructor(props: any) {
     super(props);

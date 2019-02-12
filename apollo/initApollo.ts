@@ -53,6 +53,7 @@ function create(initialState: any, { getToken, graphqlServer }: Options) {
     typeDefs
   });
 
+  console.log("graphqlServer: ", graphqlServer);
   const httpLink = new HttpLink({
     uri: graphqlServer
     // uri: `http://localhost:4000/graphql`,
