@@ -53,7 +53,7 @@ function create(initialState: any, { getToken }: Options) {
   });
 
   console.log("GRAPHQL_SERVER_URL: ", process.env.GRAPHQL_SERVER_URL);
-  console.log("process.env: ", process.env);
+  // console.log("process.env: ", process.env);
 
   const httpLink = new HttpLink({
     uri: `${process.env.GRAPHQL_SERVER_URL}`

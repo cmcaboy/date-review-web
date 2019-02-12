@@ -16,13 +16,19 @@ const webpack = require("webpack");
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
 
 module.exports = (phase, { defaultConfig }) => {
-  // console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
-  // console.log("phase: ", phase);
-  console.log("process.env in next.config.js: ", process.env);
-  console.log("localEnv in next.config.js", localEnv);
+  // console.log("defaultConfig: ", defaultConfig);
+  console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
+  console.log("phase: ", phase);
+  // console.log("process.env in next.config.js: ", process.env);
+  console.log(
+    "process.env.GRAPHQL_SERVER_URL: ",
+    process.env.GRAPHQL_SERVER_URL
+  );
+  // console.log("localEnv in next.config.js", localEnv);
   if (phase === PHASE_PRODUCTION_SERVER) {
     return {
       target: "serverless",
+      "process.env.GRAPHQL_SERVER_URL": process.env.GRAPHQL_SERVER_URL,
       env: {
         GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
         CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
