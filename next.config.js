@@ -28,7 +28,7 @@ module.exports = (phase, { defaultConfig }) => {
   if (phase === PHASE_PRODUCTION_SERVER) {
     return {
       target: "serverless",
-      publicRuntimeConfig: {
+      env: {
         GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
         CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
         CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
@@ -39,7 +39,7 @@ module.exports = (phase, { defaultConfig }) => {
 
   return withTypescript({
     target: "serverless",
-    publicRuntimeConfig: {
+    env: {
       GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
       CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
       CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
