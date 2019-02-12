@@ -26,9 +26,10 @@ if (!isBrowser) {
 
 interface Options {
   getToken: () => string;
+  graphqlServer?: string;
 }
 
-function create(initialState: any, { getToken }: Options) {
+function create(initialState: any, { getToken, graphqlServer }: Options) {
   // Initiate the cache
   // const cache = new InMemoryCache({ dataIdFromObject: object => object.id });
   const cache = new InMemoryCache().restore(initialState || {});
@@ -53,12 +54,21 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
-  console.log("client side process env", process.env);
+  console.log("client side process env", process.env.GRAPHQL_SERVER);
+  console.log("client side graphqlServer params", graphqlServer);
   // console.log("GRAPHQL_SERVER_URL client: ", process.env.GRAPHQL_SERVER_URL);
   // console.log("process.env: ", process.env);
 
+  const GRAPHQL_SERVER_URL = process.env.GRAPHQL_SERVER_URL
+    ? process.env.GRAPHQL_SERVER_URL
+    : graphqlServer;
+
+  // TODO: Use conditional to check for process.env or if variable came from server
+  // ? The initApollo function seems to be running once on the server and once on the
+  // ? client. The conditional would solve for that problem.
+
   const httpLink = new HttpLink({
-    uri: process.env.GRAPHQL_SERVER_URL
+    uri: GRAPHQL_SERVER_URL
     // uri: `http://localhost:4000/graphql`,
     // credentials: "include" // * from ben awad
     // fetchOptions: {

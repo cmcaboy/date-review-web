@@ -31,7 +31,8 @@ export default (App: any) => {
       const apollo = initApollo(
         {},
         {
-          getToken: () => parseCookies(req).qid
+          getToken: () => parseCookies(req).qid,
+          graphqlServer: process.env.GRAPHQL_SERVER_URL
         }
       );
       console.log("serverside process.env: ", process.env.GRAPHQL_SERVER_URL);
@@ -92,7 +93,8 @@ export default (App: any) => {
       this.apolloClient = initApollo(props.apolloState, {
         getToken: () => {
           return parseCookies().token;
-        }
+        },
+        graphqlServer: process.env.GRAPHQL_SERVER_URL
       });
     }
 
