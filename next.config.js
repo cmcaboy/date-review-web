@@ -1,14 +1,4 @@
 // next.config.js
-// const withTypescript = require("@zeit/next-typescript");
-// const webpack = require("webpack");
-// const { parsed: localEnv } = require("dotenv").config();
-
-// module.exports = withTypescript({
-//   webpack(config) {
-//     config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-//     return config;
-//   }
-// });
 
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
@@ -36,9 +26,6 @@ module.exports = (phase, { defaultConfig }) => {
       CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
     },
     webpack(config, options) {
-      // Do not run type checking twice:
-      // console.log("options: ", options);
-      // console.log("config: ", config);
       config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
       return config;
     }

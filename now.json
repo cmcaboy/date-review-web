@@ -7,13 +7,6 @@
     "enabled": true,
     "autoJobCancelation": false
   },
-  "build": {
-    "env": {
-      "GRAPHQL_SERVER_URL": "https://date-review-server.herokuapp.com/graphql",
-      "CLOUDINARY_UPLOAD_PRESET": "image-upload",
-      "CLOUDINARY_UPLOAD_URL": "https://api.cloudinary.com/v1_1/mcaboy-digital/image/upload"
-    }
-  },
   "env": {
     "GRAPHQL_SERVER_URL": "https://date-review-server.herokuapp.com/graphql",
     "CLOUDINARY_UPLOAD_PRESET": "image-upload",

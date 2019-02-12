@@ -26,7 +26,6 @@ interface UserState {}
 
 class User extends React.Component<UserProps, UserState> {
   static async getInitialProps({ query: { id }, apolloClient }: MyContext) {
-    console.log("apolloClient: ", apolloClient);
     return { id };
     // const { data, errors, loading } = await apolloClient.query<
     //   PersonQuery,
@@ -43,9 +42,6 @@ class User extends React.Component<UserProps, UserState> {
     super(props);
   }
   public render(): JSX.Element {
-    // const { person } = this.props;
-    console.log("props: ", this.props);
-    // if (!person) return null;
     return (
       <Container>
         <Content>

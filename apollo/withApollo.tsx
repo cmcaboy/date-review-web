@@ -35,7 +35,6 @@ export default (App: any) => {
           graphqlServer: process.env.GRAPHQL_SERVER_URL
         }
       );
-      console.log("serverside process.env: ", process.env.GRAPHQL_SERVER_URL);
 
       ctx.ctx.apolloClient = apollo;
 
