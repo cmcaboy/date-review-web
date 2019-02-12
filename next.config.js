@@ -14,7 +14,6 @@ const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
-// console.log("next.config.js");
 
 module.exports = (phase, { defaultConfig }) => {
   // console.log("PHASE_PRODUCTION_SERVER: ", PHASE_PRODUCTION_SERVER);
@@ -22,12 +21,11 @@ module.exports = (phase, { defaultConfig }) => {
   console.log("process.env in next.config.js: ", process.env);
   console.log("localEnv in next.config.js", localEnv);
   if (phase === PHASE_PRODUCTION_SERVER) {
-    return { target: "serverless" };
+    return {};
   }
   const withTypescript = require("@zeit/next-typescript");
 
   return withTypescript({
-    target: "serverless",
     webpack(config, options) {
       // Do not run type checking twice:
       // console.log("options: ", options);
