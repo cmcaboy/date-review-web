@@ -53,13 +53,12 @@ function create(initialState: any, { getToken }: Options) {
     typeDefs
   });
 
-  const { publicRuntimeConfig } = getConfig();
-  console.log("runtimeConfig client: ", publicRuntimeConfig);
+  console.log("client side process env", process.env);
   // console.log("GRAPHQL_SERVER_URL client: ", process.env.GRAPHQL_SERVER_URL);
   // console.log("process.env: ", process.env);
 
   const httpLink = new HttpLink({
-    uri: publicRuntimeConfig.GRAPHQL_SERVER_URL
+    uri: process.env.GRAPHQL_SERVER_URL
     // uri: `http://localhost:4000/graphql`,
     // credentials: "include" // * from ben awad
     // fetchOptions: {
