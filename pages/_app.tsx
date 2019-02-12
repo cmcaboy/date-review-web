@@ -6,7 +6,7 @@ import withApollo from "../apollo/withApollo";
 class MyApp extends App<any> {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
-
+    console.log("process.env getInitialProps: ", process.env);
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }

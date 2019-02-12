@@ -28,13 +28,13 @@ export default (App: any) => {
         router,
         ctx: { req, res }
       } = ctx;
-      console.log("ctx in withApollo: ", ctx);
       const apollo = initApollo(
         {},
         {
           getToken: () => parseCookies(req).qid
         }
       );
+      console.log("withApollo process.env: ", process.env);
 
       ctx.ctx.apolloClient = apollo;
 

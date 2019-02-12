@@ -29,13 +29,7 @@ module.exports = (phase, { defaultConfig }) => {
   // console.log("localEnv in next.config.js", localEnv);
   if (phase === PHASE_PRODUCTION_SERVER) {
     return {
-      target: "serverless",
-      "process.env.GRAPHQL_SERVER_URL": process.env.GRAPHQL_SERVER_URL,
-      env: {
-        GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
-        CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
-        CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
-      }
+      target: "serverless"
     };
   }
   const withTypescript = require("@zeit/next-typescript");
