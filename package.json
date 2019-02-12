@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "now-build": "next build",
+    "mock-prod": "NODE_ENV=production && next build && next start",
     "generate": "gql-gen --config codegen.yml"
   },
   "dependencies": {
