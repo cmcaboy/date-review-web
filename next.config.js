@@ -13,6 +13,8 @@
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
+console.log(process.env);
+
 const { PHASE_PRODUCTION_SERVER } = require("next-server/constants");
 
 module.exports = (phase, { defaultConfig }) => {

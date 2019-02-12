@@ -28,6 +28,7 @@ export default (App: any) => {
         router,
         ctx: { req, res }
       } = ctx;
+      console.log("ctx in withApollo: ", ctx);
       const apollo = initApollo(
         {},
         {
