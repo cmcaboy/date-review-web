@@ -24,6 +24,8 @@ module.exports = (phase, { defaultConfig }) => {
   }
   const withTypescript = require("@zeit/next-typescript");
 
+  console.log("process.env in next.config.js");
+
   return withTypescript({
     target: "serverless",
     webpack(config, options) {
