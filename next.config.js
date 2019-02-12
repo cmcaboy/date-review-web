@@ -21,11 +21,19 @@ module.exports = (phase, { defaultConfig }) => {
   console.log("process.env in next.config.js: ", process.env);
   console.log("localEnv in next.config.js", localEnv);
   if (phase === PHASE_PRODUCTION_SERVER) {
-    return {};
+    return {
+      target: "serverless",
+      env: {
+        GRAPHQL_SERVER_URL: process.env.GRAPHQL_SERVER_URL,
+        CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
+        CLOUDINARY_UPLOAD_URL: process.env.CLOUDINARY_UPLOAD_URL
+      }
+    };
   }
   const withTypescript = require("@zeit/next-typescript");
 
   return withTypescript({
+    target: "serverless",
     webpack(config, options) {
       // Do not run type checking twice:
       // console.log("options: ", options);
