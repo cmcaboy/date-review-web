@@ -1,7 +1,7 @@
 {
   "name": "date-review-web",
   "scripts": {
-    "dev": "ts-node-dev --respawn --project tsconfig.server.json server/index.ts",
+    "dev": "ts-node-dev --project tsconfig.server.json server/index.ts",
     "olddev": "next",
     "build": "next build",
     "start": "next start",

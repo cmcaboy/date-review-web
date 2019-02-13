@@ -25,6 +25,13 @@ import { ImageUpload } from "../components/ImageUpload";
 
 // * Guest is ID 20
 
+// TODO: This could be modularized to be reused for new review
+// * I could have an additional prop that includes/excludes the new
+// * user data
+// TODO: Should I modularize the review part?
+// * I could also do an inline option in the user profile page
+// * This may be a better approach.
+
 const platforms = [
   { value: undefined, label: "Unknown" },
   { value: "5", label: "Bumble" },
