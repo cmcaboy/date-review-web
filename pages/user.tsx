@@ -36,9 +36,9 @@ class User extends React.Component<UserProps, UserState> {
         <Content>
           <PersonComponent variables={{ id: this.props.id }}>
             {({ data, loading, error }) => {
-              console.log("error: ", error);
-              console.log("loading: ", loading);
-              console.log("data: ", data);
+              // console.log("error: ", error);
+              // console.log("loading: ", loading);
+              // console.log("data: ", data);
               if (loading) {
                 return null;
               } else if (error) {

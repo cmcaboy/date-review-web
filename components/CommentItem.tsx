@@ -1,8 +1,7 @@
 import * as React from "react";
 import { FindCommentsFindComments } from "../generated/apolloComponents";
 import styled from "styled-components";
-import { H5, P, Avatar, HR } from "./common";
-import { formatDate } from "../format";
+import { P } from "./common";
 import { LightText } from "./common/LightText";
 
 interface CommentItemProps {

@@ -31,9 +31,9 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
     return (
       <FindCommentsComponent variables={{ reviewId: this.props.id }}>
         {({ data, loading, error }) => {
-          console.log("error: ", error);
-          console.log("loading: ", loading);
-          console.log("data: ", data);
+          // console.log("error: ", error);
+          // console.log("loading: ", loading);
+          // console.log("data: ", data);
           if (loading) {
             return null;
           } else if (error) {

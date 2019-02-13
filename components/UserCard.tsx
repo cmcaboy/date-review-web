@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { P, Avatar, H5 } from "./common";
 import { FindUsersFindUsers } from "generated/apolloComponents";
 import { PLACEHOLDER_PHOTO } from "../variables";
-import Link from "next/link";
 
 interface UserCardProps {
   data: FindUsersFindUsers;
