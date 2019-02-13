@@ -1,15 +1,3 @@
-// next.config.js
-// const withTypescript = require("@zeit/next-typescript");
-// const webpack = require("webpack");
-// const { parsed: localEnv } = require("dotenv").config();
-
-// module.exports = withTypescript({
-//   webpack(config) {
-//     config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-//     return config;
-//   }
-// });
-
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
 
