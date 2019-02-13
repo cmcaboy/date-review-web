@@ -9,12 +9,11 @@ import styled from "styled-components";
 // TODO: Compress images?
 // TODO: Allow multiple images to be uploaded at once
 
-const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
-const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
-
 interface ImageUploadProps {
   value: string | undefined;
   setFieldValue: (field: string, value: string) => void;
+  cloudinaryUrl: string;
+  cloudinaryPreset: string;
 }
 
 interface ImageUploadState {
@@ -48,8 +47,8 @@ class ImageUpload extends React.Component<ImageUploadProps, ImageUploadState> {
 
   handleImageUpload = (file: any) => {
     let upload = request
-      .post(CLOUDINARY_UPLOAD_URL)
-      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .post(this.props.cloudinaryUrl)
+      .field("upload_preset", this.props.cloudinaryPreset)
       .field("file", file);
 
     upload.end((err: any, response: any) => {

@@ -81,7 +81,10 @@ interface MyFormikProps {
   };
 }
 
-interface NewProps {}
+interface NewProps {
+  CLOUDINARY_UPLOAD_URL: string;
+  CLOUDINARY_UPLOAD_PRESET: string;
+}
 
 interface NewState {
   loading: boolean;
@@ -89,7 +92,15 @@ interface NewState {
 }
 
 class New extends React.Component<NewProps, NewState> {
-  constructor(props) {
+  static async getInitialProps() {
+    const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
+    const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
+    return {
+      CLOUDINARY_UPLOAD_PRESET,
+      CLOUDINARY_UPLOAD_URL
+    };
+  }
+  constructor(props: NewProps) {
     super(props);
     this.state = {
       loading: false,
@@ -98,6 +109,7 @@ class New extends React.Component<NewProps, NewState> {
   }
 
   render(): JSX.Element {
+    const { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_URL } = this.props;
     return (
       <Container>
         <ThisContent>
@@ -287,6 +299,8 @@ class New extends React.Component<NewProps, NewState> {
                                 <ImageUpload
                                   value={value}
                                   setFieldValue={setFieldValue}
+                                  cloudinaryUrl={CLOUDINARY_UPLOAD_URL}
+                                  cloudinaryPreset={CLOUDINARY_UPLOAD_PRESET}
                                 />
                                 <ErrorMessage
                                   name={name}

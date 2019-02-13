@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FindCommentsComponent } from "../generated/apolloComponents";
 import CommentItem from "./CommentItem";
-import { P, HR } from "./common";
+import { HR } from "./common";
 import { LightText } from "./common/LightText";
 import styled from "styled-components";
 
