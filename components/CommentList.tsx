@@ -45,6 +45,8 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           }
           if (data && !data.findComments) {
             return null;
+          } else if (!data.findComments.length) {
+            return null;
           }
           // * Hide comments by default. Display them if user requests
           if (!this.state.showComments) {
