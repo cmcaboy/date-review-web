@@ -5,6 +5,8 @@ export enum CacheControlScope {
   Private = "PRIVATE"
 }
 
+export type Date = any;
+
 /** The `Upload` scalar type represents a file upload. */
 export type Upload = any;
 
@@ -36,6 +38,36 @@ export type NewReviewNewReview = {
   description: Maybe<string>;
 
   rating: Maybe<number>;
+
+  updateDateTime: Maybe<Date>;
+
+  author: Maybe<NewReviewAuthor>;
+
+  person: Maybe<NewReviewPerson>;
+};
+
+export type NewReviewAuthor = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+
+  profilePic: Maybe<NewReviewProfilePic>;
+};
+
+export type NewReviewProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
+};
+
+export type NewReviewPerson = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
 };
 
 export type NewUserVariables = {
@@ -121,7 +153,7 @@ export type NewUserAndReviewNewUserAndReview = {
 
   rating: Maybe<number>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 
   author: Maybe<NewUserAndReviewAuthor>;
 
@@ -163,7 +195,7 @@ export type NewCommentNewComment = {
 
   text: Maybe<string>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 };
 
 export type NewPlatformVariables = {
@@ -285,7 +317,7 @@ export type EditCommentEditComment = {
 
   text: Maybe<string>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 };
 
 export type DeleteUserVariables = {
@@ -353,7 +385,7 @@ export type PersonPerson = {
 
   age: Maybe<number>;
 
-  createDate: Maybe<string>;
+  createDate: Maybe<Date>;
 
   isActive: Maybe<boolean>;
 
@@ -403,7 +435,7 @@ export type FindUsersFindUsers = {
 
   age: Maybe<number>;
 
-  createDate: Maybe<string>;
+  createDate: Maybe<Date>;
 
   isActive: Maybe<boolean>;
 
@@ -445,7 +477,7 @@ export type ReviewReview = {
 
   rating: Maybe<number>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 
   author: Maybe<ReviewAuthor>;
 
@@ -497,7 +529,7 @@ export type FindReviewsFindReviews = {
 
   rating: Maybe<number>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 
   author: Maybe<FindReviewsAuthor>;
 
@@ -547,7 +579,7 @@ export type CommentComment = {
 
   text: Maybe<string>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 
   review: Maybe<CommentReview>;
 };
@@ -593,7 +625,7 @@ export type FindCommentsFindComments = {
 
   text: Maybe<string>;
 
-  updateDateTime: Maybe<string>;
+  updateDateTime: Maybe<Date>;
 
   review: Maybe<FindCommentsReview>;
 };
@@ -648,6 +680,18 @@ export const NewReviewDocument = gql`
       title
       description
       rating
+      updateDateTime
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
+      person {
+        id
+        username
+      }
     }
   }
 `;

@@ -6,7 +6,7 @@ import { CommentList } from "./CommentList";
 import { formatDate } from "../format";
 import { LightText } from "./common/LightText";
 import { FaStar } from "react-icons/fa";
-import { PRIMARY_COLOR } from "../variables";
+import { PRIMARY_COLOR, PLACEHOLDER_PHOTO } from "../variables";
 
 interface ReviewItemProps {
   review: FindReviewsFindReviews;
@@ -16,15 +16,13 @@ const ReviewItem: React.SFC<ReviewItemProps> = ({
   review: {
     id,
     updateDateTime,
-    author: {
-      username,
-      profilePic: { url }
-    },
+    author: { username, profilePic },
     rating,
     title,
     description
   }
 }) => {
+  const url = !!profilePic ? profilePic.url : PLACEHOLDER_PHOTO;
   return (
     <Div>
       <Heading>

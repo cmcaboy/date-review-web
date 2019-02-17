@@ -19,6 +19,18 @@ export const NEW_REVIEW = gql`
       title
       description
       rating
+      updateDateTime
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
+      person {
+        id
+        username
+      }
     }
   }
 `;

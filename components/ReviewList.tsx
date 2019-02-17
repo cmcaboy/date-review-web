@@ -2,14 +2,10 @@ import * as React from "react";
 import { FindReviewsComponent } from "../generated/apolloComponents";
 import ReviewItem from "./ReviewItem";
 import styled from "styled-components";
-import { H3, HR } from "./common";
-import { IoIosAddCircle } from "react-icons/io";
-import { PRIMARY_COLOR } from "../variables";
+import { H3, HR, Modal } from "./common";
+import { FaPlusCircle } from "react-icons/fa";
+import NewReview from "./NewReview";
 
-// TODO: Support a new review
-// TODO: Add onClick event to addCircle
-// TODO: add black border to addCircle
-// TODO: Create new review function and logic
 interface ReviewListProps {
   id: string;
 }
@@ -26,32 +22,48 @@ class ReviewList extends React.Component<ReviewListProps, ReviewListState> {
       newReview: false
     };
   }
-  public render(): JSX.Element {
-    return (
-      <Div>
-        <Title>
-          <H3>Reviews</H3>
-          <IoIosAddCircle size={36} color={PRIMARY_COLOR} />
-        </Title>
 
-        <HR />
-        <FindReviewsComponent variables={{ userId: this.props.id }}>
-          {({ data, loading, error }) => {
-            // console.log("error: ", error);
-            // console.log("loading: ", loading);
-            // console.log("data: ", data);
-            if (loading) {
-              return null;
-            } else if (error) {
-              console.log("error: ", error);
-              return null;
-            }
-            return data.findReviews.map(review => (
-              <ReviewItem key={review.id} review={review} />
-            ));
-          }}
-        </FindReviewsComponent>
-      </Div>
+  toggleModal = () =>
+    this.setState(prevState => ({ newReview: !prevState.newReview }));
+
+  render(): JSX.Element {
+    const { newReview } = this.state;
+    console.log("newReview: ", newReview);
+    return (
+      <>
+        <Modal
+          showModal={newReview}
+          label="New Review"
+          toggleModal={this.toggleModal}
+        >
+          <NewReview id={this.props.id} onFinish={this.toggleModal} />
+        </Modal>
+        <Div>
+          <Title>
+            <H3>Reviews</H3>
+            <AddIcon onClick={this.toggleModal}>
+              <FaPlusCircle size={36} color="#000" />
+            </AddIcon>
+          </Title>
+          <HR />
+          <FindReviewsComponent variables={{ userId: this.props.id }}>
+            {({ data, loading, error }) => {
+              // console.log("error: ", error);
+              // console.log("loading: ", loading);
+              // console.log("data: ", data);
+              if (loading) {
+                return null;
+              } else if (error) {
+                console.log("error: ", error);
+                return null;
+              }
+              return data.findReviews.map(review => (
+                <ReviewItem key={review.id} review={review} />
+              ));
+            }}
+          </FindReviewsComponent>
+        </Div>
+      </>
     );
   }
 }
@@ -59,6 +71,12 @@ class ReviewList extends React.Component<ReviewListProps, ReviewListState> {
 const Div = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const AddIcon = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.div`

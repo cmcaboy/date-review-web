@@ -29,11 +29,14 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
 
   render(): JSX.Element {
     return (
-      <FindCommentsComponent variables={{ reviewId: this.props.id }}>
+      <FindCommentsComponent
+        variables={{ reviewId: this.props.id }}
+        fetchPolicy="network-only"
+      >
         {({ data, loading, error }) => {
           // console.log("error: ", error);
           // console.log("loading: ", loading);
-          // console.log("data: ", data);
+          console.log("data: ", data);
           if (loading) {
             return null;
           } else if (error) {
