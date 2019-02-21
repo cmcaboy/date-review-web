@@ -4,6 +4,7 @@ import CommentItem from "./CommentItem";
 import { HR } from "./common";
 import { LightText } from "./common/LightText";
 import styled from "styled-components";
+import { CommentInput } from "./CommentInput";
 
 // TODO: Only fetch comments if requested by the user
 
@@ -48,6 +49,8 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           } else if (!data.findComments.length) {
             return null;
           }
+          // TODO: Display comment input field
+          <CommentInput />;
           // * Hide comments by default. Display them if user requests
           if (!this.state.showComments) {
             return (
