@@ -35,12 +35,13 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
   };
 
   render(): JSX.Element {
+    console.log("id: ", this.props.id);
     return (
       <FindCommentsComponent
         variables={{ reviewId: this.props.id }}
         fetchPolicy="network-only"
       >
-        {({ data, loading, error }) => {
+        {({ data, loading, error, refetch }) => {
           // console.log("error: ", error);
           // console.log("loading: ", loading);
           console.log("data: ", data);
@@ -57,7 +58,7 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           // TODO: Display comment input field
           return (
             <>
-              <CommentInput reviewId={this.props.id} />
+              <CommentInput reviewId={this.props.id} refetch={refetch} />
               {!!data.findComments.length && (
                 <>
                   <CommentsText onClick={this.ToggleComments}>
