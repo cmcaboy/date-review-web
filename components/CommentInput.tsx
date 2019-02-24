@@ -20,6 +20,7 @@ const signupSchema = Yup.object().shape({
 
 interface CommentInputProps {
   reviewId: string;
+  refetch: () => void;
 }
 
 interface CommentInputState {
@@ -42,7 +43,7 @@ class CommentInput extends React.Component<
   }
   render(): JSX.Element {
     return (
-      <NewCommentComponent>
+      <NewCommentComponent onCompleted={this.props.refetch}>
         {newComment => {
           return (
             <Formik
