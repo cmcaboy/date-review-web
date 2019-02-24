@@ -45,7 +45,7 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           // console.log("error: ", error);
           // console.log("loading: ", loading);
           console.log("data: ", data);
-          console.log("comment list count: ", data.findComments.length);
+          // console.log("comment list count: ", data.findComments.length);
           if (loading) {
             return null;
           } else if (error) {
