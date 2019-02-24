@@ -11,7 +11,7 @@ interface UserCardProps {
 interface UserCardState {}
 
 class UserCard extends React.Component<UserCardProps, UserCardState> {
-  public render(): JSX.Element {
+  render(): JSX.Element {
     const { username, age, platform, photos, id } = this.props.data;
     const photo = photos.length ? photos[0].url : PLACEHOLDER_PHOTO;
     return (

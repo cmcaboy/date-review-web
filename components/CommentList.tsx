@@ -28,6 +28,12 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
   ToggleComments = () =>
     this.setState(prevState => ({ showComments: !prevState.showComments }));
 
+  shouldComponentUpdate = (props, nextProps) => {
+    console.log("shouldcomponenetupdate props: ", props);
+    console.log("shouldcomponenetupdate nextprops: ", nextProps);
+    return true;
+  };
+
   render(): JSX.Element {
     return (
       <FindCommentsComponent
@@ -38,6 +44,7 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           // console.log("error: ", error);
           // console.log("loading: ", loading);
           console.log("data: ", data);
+          console.log("comment list count: ", data.findComments.length);
           if (loading) {
             return null;
           } else if (error) {
@@ -46,30 +53,31 @@ class CommentList extends React.Component<CommentListProps, CommentListState> {
           }
           if (data && !data.findComments) {
             return null;
-          } else if (!data.findComments.length) {
-            return null;
           }
           // TODO: Display comment input field
-          <CommentInput />;
-          // * Hide comments by default. Display them if user requests
-          if (!this.state.showComments) {
-            return (
-              <CommentsText onClick={this.ToggleComments}>
-                Show comments ({data.findComments.length})
-              </CommentsText>
-            );
-          }
           return (
             <>
-              <CommentsText onClick={this.ToggleComments}>
-                Hide comments
-              </CommentsText>
-              <ThisHR />
-              {data.findComments.map(comment => (
-                <CommentItem key={comment.id} comment={comment} />
-              ))}
+              <CommentInput reviewId={this.props.id} />
+              {!!data.findComments.length && (
+                <>
+                  <CommentsText onClick={this.ToggleComments}>
+                    {this.state.showComments
+                      ? "Hide comments"
+                      : `Show comments ${data.findComments.length}`}
+                  </CommentsText>
+                  {this.state.showComments && (
+                    <>
+                      <ThisHR />
+                      {data.findComments.map(comment => (
+                        <CommentItem key={comment.id} comment={comment} />
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
             </>
           );
+          // * Hide comments by default. Display them if user requests
         }}
       </FindCommentsComponent>
     );

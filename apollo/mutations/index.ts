@@ -123,8 +123,18 @@ export const NEW_COMMENT = gql`
   mutation NewComment($text: String!, $authorId: ID, $reviewId: ID!) {
     newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
       id
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
       text
       updateDateTime
+      review {
+        id
+      }
     }
   }
 `;

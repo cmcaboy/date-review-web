@@ -193,9 +193,35 @@ export type NewCommentNewComment = {
 
   id: Maybe<string>;
 
+  author: Maybe<NewCommentAuthor>;
+
   text: Maybe<string>;
 
   updateDateTime: Maybe<Date>;
+
+  review: Maybe<NewCommentReview>;
+};
+
+export type NewCommentAuthor = {
+  __typename?: "Person";
+
+  id: Maybe<string>;
+
+  username: Maybe<string>;
+
+  profilePic: Maybe<NewCommentProfilePic>;
+};
+
+export type NewCommentProfilePic = {
+  __typename?: "Photo";
+
+  url: Maybe<string>;
+};
+
+export type NewCommentReview = {
+  __typename?: "Review";
+
+  id: Maybe<string>;
 };
 
 export type NewPlatformVariables = {
@@ -897,8 +923,18 @@ export const NewCommentDocument = gql`
   mutation NewComment($text: String!, $authorId: ID, $reviewId: ID!) {
     newComment(text: $text, authorId: $authorId, reviewId: $reviewId) {
       id
+      author {
+        id
+        username
+        profilePic {
+          url
+        }
+      }
       text
       updateDateTime
+      review {
+        id
+      }
     }
   }
 `;

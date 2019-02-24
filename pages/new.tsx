@@ -137,7 +137,7 @@ class New extends React.Component<NewProps, NewState> {
                   description: "",
                   photo: ""
                 }}
-                validationSchema={signupSchema}
+                validationSchema={signupSchema} // validation rules
                 onSubmit={async values => {
                   await newUserAndReview({
                     variables: {
